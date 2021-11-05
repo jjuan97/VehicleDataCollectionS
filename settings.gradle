@@ -1,0 +1,2 @@
+rootProject.name = "VehicleDatacollection"
+include ':app'
