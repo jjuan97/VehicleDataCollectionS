@@ -33,6 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -44,10 +45,9 @@
 
             <TextView
                 android:id="@+id/x_a_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -65,10 +65,9 @@
 
             <TextView
                 android:id="@+id/y_a_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -86,10 +85,9 @@
 
             <TextView
                 android:id="@+id/z_a_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -123,10 +121,9 @@
 
             <TextView
                 android:id="@+id/x_g_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -144,10 +141,9 @@
 
             <TextView
                 android:id="@+id/y_g_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -165,10 +161,9 @@
 
             <TextView
                 android:id="@+id/z_g_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -202,10 +197,9 @@
 
             <TextView
                 android:id="@+id/x_m_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -223,10 +217,9 @@
 
             <TextView
                 android:id="@+id/y_m_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -244,10 +237,9 @@
 
             <TextView
                 android:id="@+id/z_m_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -281,10 +273,10 @@
 
             <TextView
                 android:id="@+id/latitude_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:text="@string/value" />
 
             <TextView
@@ -296,10 +288,10 @@
 
             <TextView
                 android:id="@+id/longitude_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:text="@string/value" />
 
 
@@ -312,10 +304,10 @@
 
             <TextView
                 android:id="@+id/altitude_value"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:text="@string/value" />
 
 
