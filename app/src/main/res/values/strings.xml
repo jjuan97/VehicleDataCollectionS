@@ -16,4 +16,5 @@
     <string name="altitude">Altitud</string>
     <string name="value">value</string>
     <string name="start">Comenzar</string>
+    <string name="stop">Parar</string>
 </resources>
