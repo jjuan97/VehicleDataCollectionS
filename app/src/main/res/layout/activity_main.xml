@@ -262,19 +262,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/latitude_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/latitude" />
+                android:text="@string/latitude"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/latitude_value"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
                 android:text="@string/value" />
@@ -284,12 +286,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/longitude" />
+                android:text="@string/longitude"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/longitude_value"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
                 android:text="@string/value" />
@@ -300,14 +304,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/altitude" />
+                android:text="@string/altitude"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/altitude_value"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
+                android:text="@string/value" />
+
+            <TextView
+                android:id="@+id/speed_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/speed"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/speed_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:text="@string/value" />
 
 
