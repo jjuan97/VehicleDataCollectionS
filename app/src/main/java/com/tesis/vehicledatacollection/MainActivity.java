@@ -19,14 +19,17 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int PERIODOMS = 20;
+    private final int PERIODOMS = 100;
     private final String GYROSCOPE = "GYROSCOPE";
+    private final String MAGNETOMETER = "MAGNETOMETER";
 
     private ActivityMainBinding binding;
-    private DecimalFormat formatNumbers = new DecimalFormat("##0.000");
     private SensorManager sensorManager;
     private Sensor gyroscope;
-    private GyroscopeListener gyroscopeListener = new GyroscopeListener();
+    private Sensor magnetometer;
+    private final GyroscopeListener gyroscopeListener = new GyroscopeListener();
+    private final MagnetometerListener magnetometerListener = new MagnetometerListener();
+    private final DecimalFormat formatNumbers = new DecimalFormat("##0.000");
     private boolean recording = false;
 
     @Override
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
 
         binding.buttonStartStop.setOnClickListener(view1 -> {
             recording = !recording;
@@ -46,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
             if (recording){
                 sensorManager.registerListener(gyroscopeListener, gyroscope, PERIODOMS*1000);
+                sensorManager.registerListener(magnetometerListener, magnetometer, PERIODOMS*1000);
             }
             else{
                 sensorManager.unregisterListener(gyroscopeListener);
+                sensorManager.unregisterListener(magnetometerListener);
             }
             //String texto = binding.xAValue.getText().toString();
             //Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
@@ -59,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
     private class GyroscopeListener implements SensorEventListener{
         @Override
         public void onSensorChanged(SensorEvent event) {
-            // The light sensor returns a single value.
-            // Many sensors return 3 values, one for each axis.
             String xG = formatNumbers.format(event.values[0]);
             String yG = formatNumbers.format(event.values[1]);
             String zG = formatNumbers.format(event.values[2]);
@@ -76,6 +81,31 @@ public class MainActivity extends AppCompatActivity {
                     "zG = " + zG;
 
             Log.d(GYROSCOPE, dataGyroscope);
+        }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    }
+
+    private class MagnetometerListener implements SensorEventListener{
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            String xM = formatNumbers.format(event.values[0]);
+            String yM = formatNumbers.format(event.values[1]);
+            String zM = formatNumbers.format(event.values[2]);
+            long timestamp = event.timestamp;
+
+            binding.xMValue .setText(xM);
+            binding.yMValue.setText(yM);
+            binding.zMValue.setText(zM);
+
+            String dataMagnetometer = "Tmp: " + timestamp + "\n" +
+                    "xG = " + xM + "\n" +
+                    "yG = " + yM + "\n" +
+                    "zG = " + zM;
+
+            Log.d(MAGNETOMETER, dataMagnetometer);
         }
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
