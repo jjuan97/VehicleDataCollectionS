@@ -5,7 +5,7 @@
     <string name="gyroscope">Giróscopio</string>
     <string name="magnetometer">Magnetómetro</string>
     <string name="gps">GPS</string>
-    <string name="m_s2">m/s<sup><font size="2">2</font></sup></string>
+    <string name="m_s2">m/s<sup><font size="10">2</font></sup></string>
     <string name="rad_s">rad/s</string>
     <string name="micro_tesla">μT</string>
     <string name="x_equal">X=</string>
@@ -14,6 +14,7 @@
     <string name="latitude">Latitud</string>
     <string name="longitude">Longitud</string>
     <string name="altitude">Altitud</string>
+    <string name="speed">Velocidad</string>
     <string name="value">value</string>
     <string name="start">Comenzar</string>
     <string name="stop">Parar</string>

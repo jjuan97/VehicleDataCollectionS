@@ -39,9 +39,9 @@ public class MagnetometerListener implements SensorEventListener {
         binding.yMValue.setText(data[1]);
         binding.zMValue.setText(data[2]);
 
-        String dataMagnetometer = "Tmp: " + timestamp + "\n" +
-                "xM = " + data[0] + "\n" +
-                "yM = " + data[1] + "\n" +
+        String dataMagnetometer = "Tmp: " + timestamp + "\t" +
+                "xM = " + data[0] + "\t" +
+                "yM = " + data[1] + "\t" +
                 "zM = " + data[2];
 
         Log.d(MAGNETOMETER, dataMagnetometer);

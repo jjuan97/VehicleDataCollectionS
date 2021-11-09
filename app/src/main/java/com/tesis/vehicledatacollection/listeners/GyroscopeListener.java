@@ -38,9 +38,9 @@ public class GyroscopeListener implements SensorEventListener {
         binding.yGValue.setText(data[1]);
         binding.zGValue.setText(data[2]);
 
-        String dataGyroscope = "Tmp: " + timestamp + "\n" +
-                "xG = " + data[0] + "\n" +
-                "yG = " + data[1] + "\n" +
+        String dataGyroscope = "Tmp: " + timestamp + "\t" +
+                "xG = " + data[0] + "\t" +
+                "yG = " + data[1] + "\t" +
                 "zG = " + data[2];
 
         Log.d(GYROSCOPE, dataGyroscope);
