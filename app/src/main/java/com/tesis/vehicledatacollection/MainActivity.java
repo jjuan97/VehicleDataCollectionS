@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         // Listener objects
-        accelerometerListener = new AccelerometerListener(binding);
+        accelerometerListener = new AccelerometerListener(binding, this);
         gyroscopeListener = new GyroscopeListener(binding);
         magnetometerListener = new MagnetometerListener(binding);
 
