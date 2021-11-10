@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.Manifest;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -95,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 sensorManager.unregisterListener(magnetometerListener);
                 stopLocationUpdates();
             }
+        });
+
+        // Go to Trip History
+        binding.tripHistory.setOnClickListener(view1 -> {
+            Intent toTripHistory = new Intent(this, TripLog.class);
+            startActivity(toTripHistory);
         });
     }
 

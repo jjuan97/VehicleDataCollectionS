@@ -347,7 +347,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <EditText
+    <!--<EditText
         android:id="@+id/trip_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -356,6 +356,16 @@
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_start_stop" />
+        app:layout_constraintTop_toBottomOf="@+id/button_start_stop" />-->
+    <TextView
+        android:id="@+id/trip_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_start_stop"
+        android:text="@string/trip_history"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
