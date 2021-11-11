@@ -28,9 +28,12 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.tesis.vehicledatacollection.listeners.VehicleDataState;
+import com.tesis.vehicledatacollection.listeners.SavingDataTask;
+import com.tesis.vehicledatacollection.listeners.TmpVehicleDataState;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,8 +59,11 @@ public class MainActivity extends AppCompatActivity {
     // Variables that define how the data is captured.
     private boolean recording = false;
     private final int FRECUENCYHz = 20;
-    // Milli seconds. TODO: check what interval is the correct
     private final long gpsInterval = 1000/FRECUENCYHz;
+
+    // Saving into DB task
+    TimerTask savingDataTask;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         // Listener objects
-        accelerometerListener = new AccelerometerListener(binding, getApplicationContext());
+        accelerometerListener = new AccelerometerListener(binding);
         gyroscopeListener = new GyroscopeListener(binding);
         magnetometerListener = new MagnetometerListener(binding);
 
@@ -94,7 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / FRECUENCYHz);
                 sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / FRECUENCYHz);
                 startLocationUpdates();
+
+                savingDataTask = new SavingDataTask();
+                timer = new Timer(true);
+                timer.scheduleAtFixedRate(savingDataTask, 250, 1000/FRECUENCYHz);
             } else {
+                timer.cancel();
                 sensorManager.unregisterListener(accelerometerListener);
                 sensorManager.unregisterListener(gyroscopeListener);
                 sensorManager.unregisterListener(magnetometerListener);
@@ -162,9 +173,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     /* String gpsData = "Latitude: " + latitude + "\t" +
                             "Longitude: " + longitude + "\t" +
-                            "speed: " + speed + "\n"; */
-                    // Log.d("GPS", gpsData);
-                    VehicleDataState.updateGpsData(latitude, longitude, speed);
+                            "speed: " + speed + "\n";
+                    Log.d("GPS", gpsData); */
+
+                    TmpVehicleDataState.updateGpsData(latitude, longitude, speed);
 
                     binding.latitudeValue.setText(String.valueOf(latitude));
                     binding.longitudeValue.setText(String.valueOf(longitude));

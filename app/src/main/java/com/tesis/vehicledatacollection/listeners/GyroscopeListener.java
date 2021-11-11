@@ -1,7 +1,5 @@
 package com.tesis.vehicledatacollection.listeners;
 
-import static com.tesis.vehicledatacollection.listeners.VehicleDataState.updateGyrData;
-
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,7 +21,8 @@ public class GyroscopeListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        updateGyrData(event.values);
+        TmpVehicleDataState.updateGyrData(event.values);
+
         String [] data = new String[3];
         data[0] = formatNumbers.format(event.values[0]);
         data[1] = formatNumbers.format(event.values[1]);

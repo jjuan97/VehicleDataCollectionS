@@ -21,8 +21,8 @@ public class MagnetometerListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        TmpVehicleDataState.updateMagData(event.values);
 
-        VehicleDataState.updateMagData(event.values);
         String [] data = new String[3];
         data[0] = formatNumbers.format(event.values[0]);
         data[1] = formatNumbers.format(event.values[1]);
