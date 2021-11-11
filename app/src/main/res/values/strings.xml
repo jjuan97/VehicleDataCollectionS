@@ -16,6 +16,17 @@
     <string name="altitude">Altitud</string>
     <string name="speed">Velocidad</string>
     <string name="value">value</string>
+    <string name="value_number">0</string>
     <string name="start">Comenzar</string>
     <string name="stop">Parar</string>
+    <string name="trip_history">Historial de viajes</string>
+    <string name="id">Id</string>
+    <string name="timestamp">timestamp</string>
+    <string name="id_trip">Id Viaje</string>
+    <string name="time_lecture">Time</string>
+    <string name="kinematic_data_register">Cinematicos</string>
+    <string name="gps_data_register">GPS</string>
+    <string name="near_crashes_register">Near-crashes</string>
+    <string name="frequency">Frecuencia</string>
+    <string name="error_frequency">Invalido!! la frecuencia no debe ser 0</string>
 </resources>

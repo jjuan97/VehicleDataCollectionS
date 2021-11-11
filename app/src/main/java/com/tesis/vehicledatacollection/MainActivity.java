@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.Manifest;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ import android.os.Looper;
 
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 import com.tesis.vehicledatacollection.databinding.ActivityMainBinding;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     float speed;
 
     // Variables that define how the data is captured.
+    String frequencyHz;
     private boolean recording = false;
     private final int FRECUENCYHz = 20;
     private final long gpsInterval = 1000/FRECUENCYHz;
@@ -91,26 +96,48 @@ public class MainActivity extends AppCompatActivity {
 
         // Button listener
         binding.buttonStartStop.setOnClickListener(view1 -> {
-            recording = !recording;
-            String buttonMsg = recording ? getString(R.string.stop) : getString(R.string.start);
-            binding.buttonStartStop.setText(buttonMsg);
 
-            if (recording) {
-                sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / FRECUENCYHz);
-                sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / FRECUENCYHz);
-                sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / FRECUENCYHz);
-                startLocationUpdates();
+            // Capture number in frequency edit text
+            frequencyHz = binding.tripFrecuency.getText().toString();
 
-                savingDataTask = new SavingDataTask();
-                timer = new Timer(true);
-                timer.scheduleAtFixedRate(savingDataTask, 250, 1000/FRECUENCYHz);
-            } else {
-                timer.cancel();
-                sensorManager.unregisterListener(accelerometerListener);
-                sensorManager.unregisterListener(gyroscopeListener);
-                sensorManager.unregisterListener(magnetometerListener);
-                stopLocationUpdates();
+            // Check void frequency
+            if(frequencyHz.equals("")){
+                Toast.makeText(this, getText(R.string.error_frequency), Toast.LENGTH_LONG).show();
             }
+            else {
+
+                recording = !recording;
+                String buttonMsg = recording ? getString(R.string.stop) : getString(R.string.start);
+                binding.buttonStartStop.setText(buttonMsg);
+
+                if (recording) {
+                    // Transform frequency edit text to int
+                    int f = Integer.parseInt(frequencyHz);
+
+                    Log.d("frequency",""+f);
+
+                    sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / f);
+                    sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / f);
+                    sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / f);
+                    startLocationUpdates();
+
+                    savingDataTask = new SavingDataTask();
+                    timer = new Timer(true);
+                    timer.scheduleAtFixedRate(savingDataTask, 250, 1000/FRECUENCYHz);
+                } else {
+                    timer.cancel();
+                    sensorManager.unregisterListener(accelerometerListener);
+                    sensorManager.unregisterListener(gyroscopeListener);
+                    sensorManager.unregisterListener(magnetometerListener);
+                    stopLocationUpdates();
+                }
+            }
+        });
+
+        // Go to Trip History
+        binding.tripHistory.setOnClickListener(view1 -> {
+            Intent toTripHistory = new Intent(this, TripLog.class);
+            startActivity(toTripHistory);
         });
     }
 
