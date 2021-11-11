@@ -4,60 +4,78 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tesis.vehicledatacollection.R;
 import com.tesis.vehicledatacollection.classes.Trip;
 
 import java.util.ArrayList;
 
-public class TripAdapter extends ArrayAdapter<Trip> implements View.OnClickListener{
+public class TripAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
+    ArrayList<Trip> item;
     private View.OnClickListener listener;
 
-    // Adapter constructor
-    public TripAdapter(@NonNull Context context, int resource, ArrayList<Trip> items) {
-        super(context, resource, items);
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView idTrip;
+        private final TextView dateTrip;
+
+        public ViewHolder(View view) {
+            super(view);
+            // Define click listener for the ViewHolder's View
+            idTrip = view.findViewById(R.id.id_trip);
+            dateTrip = view.findViewById(R.id.date_trip);
+        }
     }
 
-    // Add item list view
+    // Adapter constructor
+    public TripAdapter(ArrayList<Trip> items) {
+        this.item = items;
+    }
+
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-        // Get item position
-        Trip currentTrip = getItem(position);
-
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate view
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_trip, parent, false);
-        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_trip, parent, false);
 
-        // Layout features
-        //layout.setOnClickListener(this);
+        // View features
+        view.setOnClickListener(this);
+        return new ViewHolder(view);
 
-        // Set info in item
-        TextView idTrip = convertView.findViewById(R.id.id_trip);
-        TextView dateTrip = convertView.findViewById(R.id.date_trip);
-
-        idTrip.setText(currentTrip.getIdTrip());
-        dateTrip.setText(currentTrip.getIdTrip());
-
-        return convertView;
-
-        //return super.getView(position, convertView, parent);
     }
 
-    // Card view listener
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        ViewHolder itemTripHolder = (ViewHolder) holder;
+
+        Trip currentTrip = item.get(position);
+        itemTripHolder.idTrip.setText(String.valueOf(currentTrip.getIdTrip()));
+        itemTripHolder.dateTrip.setText(currentTrip.getDate());
+    }
+
+    @Override
+    public int getItemCount() {
+        return item.size();
+    }
+
+    //card view listener
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
 
     @Override
     public void onClick(View view) {
-        if (listener != null){
+        if(listener != null){
             listener.onClick(view);
         }
     }
+
 }
