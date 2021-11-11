@@ -27,4 +27,6 @@
     <string name="kinematic_data_register">Cinematicos</string>
     <string name="gps_data_register">GPS</string>
     <string name="near_crashes_register">Near-crashes</string>
+    <string name="frequency">Frecuencia</string>
+    <string name="error_frequency">Invalido!! la frecuencia no debe ser 0</string>
 </resources>

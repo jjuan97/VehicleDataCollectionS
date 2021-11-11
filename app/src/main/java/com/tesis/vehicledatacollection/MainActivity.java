@@ -17,6 +17,9 @@ import android.os.Looper;
 
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.tesis.vehicledatacollection.databinding.ActivityMainBinding;
 import com.tesis.vehicledatacollection.listeners.GyroscopeListener;
@@ -53,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
     float speed;
 
     // Variables that define how the data is captured.
+    String frequencyHz;
     private boolean recording = false;
-    private final int FRECUENCYHz = 50;
+    private final int FRECUENCYHz = 2;
     // Milli seconds. TODO: check what interval is the correct
     private final long gpsInterval = 50;
 
@@ -81,20 +85,36 @@ public class MainActivity extends AppCompatActivity {
 
         // Button listener
         binding.buttonStartStop.setOnClickListener(view1 -> {
-            recording = !recording;
-            String buttonMsg = recording ? getString(R.string.stop) : getString(R.string.start);
-            binding.buttonStartStop.setText(buttonMsg);
 
-            if (recording) {
-                sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / FRECUENCYHz);
-                sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / FRECUENCYHz);
-                sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / FRECUENCYHz);
-                startLocationUpdates();
-            } else {
-                sensorManager.unregisterListener(accelerometerListener);
-                sensorManager.unregisterListener(gyroscopeListener);
-                sensorManager.unregisterListener(magnetometerListener);
-                stopLocationUpdates();
+            // Capture number in frequency edit text
+            frequencyHz = binding.tripFrecuency.getText().toString();
+
+            // Check void frequency
+            if(frequencyHz.equals("")){
+                Toast.makeText(this, getText(R.string.error_frequency), Toast.LENGTH_LONG).show();
+            }
+            else {
+
+                recording = !recording;
+                String buttonMsg = recording ? getString(R.string.stop) : getString(R.string.start);
+                binding.buttonStartStop.setText(buttonMsg);
+
+                if (recording) {
+                    // Transform frequency edit text to int
+                    int f = Integer.parseInt(frequencyHz);
+
+                    Log.d("frequency",""+f);
+
+                    sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / f);
+                    sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / f);
+                    sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / f);
+                    startLocationUpdates();
+                } else {
+                    sensorManager.unregisterListener(accelerometerListener);
+                    sensorManager.unregisterListener(gyroscopeListener);
+                    sensorManager.unregisterListener(magnetometerListener);
+                    stopLocationUpdates();
+                }
             }
         });
 
