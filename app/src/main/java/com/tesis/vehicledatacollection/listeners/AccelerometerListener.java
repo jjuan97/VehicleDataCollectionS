@@ -1,5 +1,7 @@
 package com.tesis.vehicledatacollection.listeners;
 
+import static com.tesis.vehicledatacollection.listeners.VehicleDataState.updateAccData;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -33,6 +35,7 @@ public class AccelerometerListener implements SensorEventListener {
         float xA = event.values[0];
         float yA = event.values[1];
         float zA = event.values[2];
+        updateAccData(event.values);
 
         //event can return timestamp
         Long time = event.timestamp;
@@ -57,14 +60,16 @@ public class AccelerometerListener implements SensorEventListener {
         binding.zAValue.setText(data[2]);
 
         AccData accData = new AccData(data[0], data[1], data[2]);
-        saveAccData(accData);
 
-        String dataAccelerometer = "Tmp: " + timestamp + "\t" +
+        // Saving to DB
+        // saveAccData(accData);
+
+        /* String dataAccelerometer = "Tmp: " + timestamp + "\t" +
                 "xA = " + data[0] + "\t" +
                 "yA = " + data[1] + "\t" +
-                "zA = " + data[2];
+                "zA = " + data[2]; */
 
-        Log.d(ACCELEROMETER, dataAccelerometer);
+        // Log.d(ACCELEROMETER, dataAccelerometer);
     }
 
     private void saveAccData(AccData accData) {
@@ -73,7 +78,7 @@ public class AccelerometerListener implements SensorEventListener {
             @Override
             protected Void doInBackground(Void... voids) {
                 //adding to database
-                VehicleDatabaseSingleton.getDatabaseInstance(context)
+                VehicleDatabaseSingleton.getDatabaseInstance()
                         .accDataDAO().insertAccData(accData);
                 return null;
             }

@@ -9,7 +9,7 @@ public class AccData {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
-    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
+    // @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
     public long timestamp;
 
     public String accX;
@@ -20,5 +20,6 @@ public class AccData {
         this.accX = accX;
         this.accY = accY;
         this.accZ = accZ;
+        this.timestamp = System.currentTimeMillis();
     }
 }

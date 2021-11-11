@@ -13,11 +13,15 @@ public class VehicleDatabaseSingleton {
 
     }
 
-    public static VehicleDatabase getDatabaseInstance (Context context) {
+    public static VehicleDatabase createDatabaseInstance (Context context) {
         if (database == null){
             database = Room.databaseBuilder(context,
                     VehicleDatabase.class, BD_NAME).build();
         }
+        return database;
+    }
+
+    public static VehicleDatabase getDatabaseInstance () {
         return database;
     }
 }

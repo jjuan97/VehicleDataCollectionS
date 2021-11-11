@@ -1,5 +1,7 @@
 package com.tesis.vehicledatacollection.listeners;
 
+import static com.tesis.vehicledatacollection.listeners.VehicleDataState.updateGyrData;
+
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -21,6 +23,7 @@ public class GyroscopeListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        updateGyrData(event.values);
         String [] data = new String[3];
         data[0] = formatNumbers.format(event.values[0]);
         data[1] = formatNumbers.format(event.values[1]);
@@ -38,11 +41,11 @@ public class GyroscopeListener implements SensorEventListener {
         binding.yGValue.setText(data[1]);
         binding.zGValue.setText(data[2]);
 
-        String dataGyroscope = "Tmp: " + timestamp + "\t" +
+        /* String dataGyroscope = "Tmp: " + timestamp + "\t" +
                 "xG = " + data[0] + "\t" +
                 "yG = " + data[1] + "\t" +
-                "zG = " + data[2];
+                "zG = " + data[2]; */
 
-        Log.d(GYROSCOPE, dataGyroscope);
+        // Log.d(GYROSCOPE, dataGyroscope);
     }
 }

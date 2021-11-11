@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
+import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 import com.tesis.vehicledatacollection.databinding.ActivityMainBinding;
 import com.tesis.vehicledatacollection.listeners.GyroscopeListener;
 import com.tesis.vehicledatacollection.listeners.MagnetometerListener;
@@ -27,6 +28,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.tesis.vehicledatacollection.listeners.VehicleDataState;
 
 import java.util.List;
 
@@ -53,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables that define how the data is captured.
     private boolean recording = false;
-    private final int FRECUENCYHz = 50;
+    private final int FRECUENCYHz = 20;
     // Milli seconds. TODO: check what interval is the correct
-    private final long gpsInterval = 50;
+    private final long gpsInterval = 1000/FRECUENCYHz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +66,14 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        // Creating Database Instance
+        VehicleDatabaseSingleton.createDatabaseInstance(getApplicationContext());
+
         // Sensors Accelerometer, Gyroscope, Magnetometer
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         // Listener objects
-        accelerometerListener = new AccelerometerListener(binding, this);
+        accelerometerListener = new AccelerometerListener(binding, getApplicationContext());
         gyroscopeListener = new GyroscopeListener(binding);
         magnetometerListener = new MagnetometerListener(binding);
 
@@ -155,11 +160,12 @@ public class MainActivity extends AppCompatActivity {
                         altitude = 0.0;
                         speed = 0.0f;
                     }
-                    String gpsData = "Latitude: " + latitude + "\t" +
+                    /* String gpsData = "Latitude: " + latitude + "\t" +
                             "Longitude: " + longitude + "\t" +
-                            "speed: " + speed + "\n";
+                            "speed: " + speed + "\n"; */
+                    // Log.d("GPS", gpsData);
+                    VehicleDataState.updateGpsData(latitude, longitude, speed);
 
-                    Log.d("GPS", gpsData);
                     binding.latitudeValue.setText(String.valueOf(latitude));
                     binding.longitudeValue.setText(String.valueOf(longitude));
                     binding.altitudeValue.setText(String.valueOf(altitude));

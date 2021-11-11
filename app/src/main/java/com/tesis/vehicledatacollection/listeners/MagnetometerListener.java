@@ -21,6 +21,8 @@ public class MagnetometerListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        VehicleDataState.updateMagData(event.values);
         String [] data = new String[3];
         data[0] = formatNumbers.format(event.values[0]);
         data[1] = formatNumbers.format(event.values[1]);
@@ -39,11 +41,11 @@ public class MagnetometerListener implements SensorEventListener {
         binding.yMValue.setText(data[1]);
         binding.zMValue.setText(data[2]);
 
-        String dataMagnetometer = "Tmp: " + timestamp + "\t" +
+        /* String dataMagnetometer = "Tmp: " + timestamp + "\t" +
                 "xM = " + data[0] + "\t" +
                 "yM = " + data[1] + "\t" +
-                "zM = " + data[2];
+                "zM = " + data[2]; */
 
-        Log.d(MAGNETOMETER, dataMagnetometer);
+        // Log.d(MAGNETOMETER, dataMagnetometer);
     }
 }
