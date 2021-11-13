@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tesis.vehicledatacollection.R;
 import com.tesis.vehicledatacollection.classes.Trip;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TripAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
-    ArrayList<Trip> item;
+    List<Trip> item;
     private View.OnClickListener listener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -35,7 +35,7 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
     }
 
     // Adapter constructor
-    public TripAdapter(ArrayList<Trip> items) {
+    public TripAdapter(List<Trip> items) {
         this.item = items;
     }
 
@@ -64,6 +64,16 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
     @Override
     public int getItemCount() {
         return item.size();
+    }
+
+    // Fill adapter with List of Trip objects
+    public void setTrips(List<Trip> item){
+        this.item = item;
+        notifyDataSetChanged();
+    }
+
+    public Trip getTrip(int position){
+        return item.get(position);
     }
 
     //card view listener

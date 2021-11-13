@@ -1,20 +1,23 @@
 package com.tesis.vehicledatacollection;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.tesis.vehicledatacollection.adapters.TripAdapter;
 import com.tesis.vehicledatacollection.classes.Trip;
+import com.tesis.vehicledatacollection.database.VehicleData;
 import com.tesis.vehicledatacollection.databinding.ActivityTripLogBinding;
+import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TripLog extends AppCompatActivity {
 
@@ -24,7 +27,9 @@ public class TripLog extends AppCompatActivity {
 
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
-    ArrayList<Trip> trips = new ArrayList<>();
+    VehicleDataViewModel model;
+    List<Trip> trips = new ArrayList<>();
+    List<VehicleData> vehicleDataList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,36 +38,86 @@ public class TripLog extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        // Add trip information
-        fillArrayList();
+        // Create View Model for Async task
+        model = new ViewModelProvider(this).get(VehicleDataViewModel.class);
 
-        // Crete layout manager to attached recycler view
+        // Create trip item adapter
+        adapter = new TripAdapter(trips);
+
+        // Create layout manager to attached recycler view
         mLayoutManager = new LinearLayoutManager(view.getContext());
 
-        // Set trip item adapter and aggregate OnClickListener
+        // Create recycler view and add features
         mRecyclerView = binding.recyclerViewTripHistory;
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(adapter);
 
-        adapter = new TripAdapter(trips);
+        // Add trip information
+        fillRecycler();
+
+        // Aggregate OnClickListener to adapter
         adapter.setOnClickListener(view1 -> {
 
             // Get object trip in item list
-            Trip trip = trips.get(mRecyclerView.getChildAdapterPosition(view1));
+            Trip trip = adapter.getTrip(mRecyclerView.getChildAdapterPosition(view1));
+            //Trip trip = trips.get(mRecyclerView.getChildAdapterPosition(view1));
 
-            Toast.makeText(this,""+trip.getIdTrip(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,""+trip.getIdTrip(),Toast.LENGTH_SHORT).show();
 
-            binding.columnValue1.setText(trip.getDate());
+            model.getVehicleData(trip.getIdTrip()).observe(this, vehicleData -> {
+                // update UI
+                Toast.makeText(this,""+vehicleData.get(0).getAccX(),Toast.LENGTH_SHORT).show();
+                binding.columnValue1.setText(String.valueOf(vehicleData.get(0).getAccX()));
+            });
+
+
+
+            /*class getVehicleDataAsync extends AsyncTask <Void, Void, List<VehicleData>> {
+
+                List<VehicleData> vehicleData;
+
+                public getVehicleDataAsync(Activity activity) {
+                    weakActivity = new WeakReference<>(activity);
+                    this.email = email;
+                    this.phone = phone;
+                    this.license = license;
+                }
+
+                @Override
+                protected List<VehicleData> doInBackground(Void... params) {
+
+                    vehicleData = VehicleDatabaseSingleton
+                            .getDatabaseInstance()
+                            .vehicleDataDAO()
+                            .findVehicleDataById( trip.getIdTrip() ); // Only interesting in send ID
+
+                    return vehicleData;
+                }
+            }*/
+
+
+
+
+            //binding.columnValue1.setText(String.valueOf(vehicleData.get(0).getLatitude()));
             binding.columnValue2.setText(String.valueOf(trip.getKinematicData()));
             binding.columnValue3.setText(String.valueOf(trip.getLocalizationData()));
             binding.columnValue4.setText(String.valueOf(trip.getNear_crashesData()));
         });
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(adapter);
+
 
 
     }
 
-    public void fillArrayList(){
+    public void fillRecycler(){
+        model.getTripData(3).observe(this, tripData -> {
+            // update UI
+            adapter.setTrips(tripData);
+        });
+    }
+
+    /*public void fillArrayList(){
         // Dummy data trips
         //System.currentTimeMillis();
         Trip trip1 = new Trip(1, "10-11-2021", 100, 80, 10);
@@ -103,5 +158,5 @@ public class TripLog extends AppCompatActivity {
         trips.add(trip16);
 
         Log.d("array", "Lleno");
-    }
+    }*/
 }

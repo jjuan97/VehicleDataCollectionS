@@ -61,4 +61,63 @@ public class VehicleData {
         return timestamp;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public int getIdTravel() {
+        return idTravel;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public float getAccX() {
+        return accX;
+    }
+
+    public float getAccY() {
+        return accY;
+    }
+
+    public float getAccZ() {
+        return accZ;
+    }
+
+    public float getVelAngX() {
+        return velAngX;
+    }
+
+    public float getVelAngY() {
+        return velAngY;
+    }
+
+    public float getVelAngZ() {
+        return velAngZ;
+    }
+
+    public float getMagX() {
+        return magX;
+    }
+
+    public float getMagY() {
+        return magY;
+    }
+
+    public float getMagZ() {
+        return magZ;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
 }

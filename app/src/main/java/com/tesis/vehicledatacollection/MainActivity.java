@@ -17,8 +17,6 @@ import android.os.Looper;
 
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
@@ -63,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     // Variables that define how the data is captured.
     String frequencyHz;
     private boolean recording = false;
-    private final int FRECUENCYHz = 20;
-    private final long gpsInterval = 1000/FRECUENCYHz;
+    private final int FREQUENCYHz = 20;
+    private final long gpsInterval = 1000/ FREQUENCYHz;
 
     // Saving into DB task
     TimerTask savingDataTask;
@@ -114,16 +112,14 @@ public class MainActivity extends AppCompatActivity {
                     // Transform frequency edit text to int
                     int f = Integer.parseInt(frequencyHz);
 
-                    Log.d("frequency",""+f);
-
-                    sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / f);
-                    sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / f);
-                    sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / f);
+                    sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / FREQUENCYHz);
+                    sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / FREQUENCYHz);
+                    sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / FREQUENCYHz);
                     startLocationUpdates();
 
                     savingDataTask = new SavingDataTask();
                     timer = new Timer(true);
-                    timer.scheduleAtFixedRate(savingDataTask, 250, 1000/FRECUENCYHz);
+                    timer.scheduleAtFixedRate(savingDataTask, 250, 1000/ f);
                 } else {
                     timer.cancel();
                     sensorManager.unregisterListener(accelerometerListener);
