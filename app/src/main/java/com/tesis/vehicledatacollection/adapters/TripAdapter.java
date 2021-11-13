@@ -58,7 +58,7 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
 
         Trip currentTrip = item.get(position);
         itemTripHolder.idTrip.setText(String.valueOf(currentTrip.getIdTrip()));
-        itemTripHolder.dateTrip.setText(currentTrip.getDate());
+        itemTripHolder.dateTrip.setText(currentTrip.getTime());
     }
 
     @Override
@@ -71,6 +71,8 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
         this.item = item;
         notifyDataSetChanged();
     }
+
+    // Get selected item in recycler view
 
     public Trip getTrip(int position){
         return item.get(position);

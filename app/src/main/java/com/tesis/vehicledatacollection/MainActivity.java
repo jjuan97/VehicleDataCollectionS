@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             // Check the different Accelerometer sensors in this device
             List<Sensor> accelerometerSensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
-            Log.d("Acelerometer Sensor", accelerometerSensors.toString());
+            Log.d("Accelerometer Sensor", accelerometerSensors.toString());
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         } else {
             Log.d("error_sensor", "No accelerometer sensor in this device");

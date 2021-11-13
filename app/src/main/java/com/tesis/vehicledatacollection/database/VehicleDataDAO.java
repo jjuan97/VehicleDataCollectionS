@@ -21,16 +21,16 @@ public interface VehicleDataDAO {
     @Query("SELECT * FROM VehicleData")
     public LiveData<List<VehicleData>> getAllVehicleData();
 
-    @Query("SELECT id AS idTrip," +
-            " timestamp AS date," +
-            " COUNT(accX) AS kinematicData," +
-            " COUNT(latitude) AS localizationData," +
-            " COUNT(eventClass) AS near_crashesData" +
-            " FROM VehicleData GROUP BY latitude LIMIT :dataId") //TODO: Change id to idTravel, Add GROUP BY VehicleID, eventClass identify zero data and not count
+    @Query("SELECT id AS idTrip," + //TODO: Change id to idTravel
+            " timestamp AS time," +
+            " COUNT(accX) AS capturedData," +
+            " SUM(eventClass) AS nearcrashesData," +
+            " AVG(id) AS meanFrequency" +  //TODO: change to captured frequency
+            " FROM VehicleData GROUP BY latitude LIMIT :dataId") //TODO: Add GROUP BY VehicleID
     public LiveData<List<Trip>> getAllTripData(int dataId);
 
     @Query("SELECT * FROM VehicleData WHERE id = :dataId")
-    public LiveData<List<VehicleData>> findVehicleDataById(int dataId);
+    public LiveData<List<VehicleData>> findVehicleDataById(int dataId); //TODO: Change id to idTravel
 
 
 

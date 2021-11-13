@@ -64,30 +64,31 @@
 
             <TextView
                 android:id="@+id/column_title_1"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="@string/time_lecture"
-                android:gravity="center"/>
+                android:text="@string/id_vehicle"
+                android:gravity="center"
+                android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/column_title_2"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@string/kinematic_data_register"
+                android:text="@string/data_captured"
                 android:gravity="center"/>
             <TextView
                 android:id="@+id/column_title_3"
-                android:layout_width="60dp"
+                android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@string/gps_data_register"
+                android:text="@string/near_crashes_register"
                 android:gravity="center"/>
             <TextView
                 android:id="@+id/column_title_4"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@string/near_crashes_register"
+                android:text="@string/mean_frequency"
                 android:gravity="center"/>
 
 
@@ -103,7 +104,7 @@
 
             <TextView
                 android:id="@+id/column_value_1"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="@string/value_number"
                 android:gravity="center"/>
@@ -116,7 +117,7 @@
                 android:gravity="center"/>
             <TextView
                 android:id="@+id/column_value_3"
-                android:layout_width="60dp"
+                android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/value_number"
@@ -130,6 +131,13 @@
                 android:gravity="center"/>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/button_send_data"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/send_trip_data" />
     </LinearLayout>
 
 

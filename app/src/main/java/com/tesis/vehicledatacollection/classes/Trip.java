@@ -2,58 +2,61 @@ package com.tesis.vehicledatacollection.classes;
 
 public class Trip {
 
-    private int idTrip;
-    private String date;
-    private int kinematicData;
-    private int localizationData;
-    private int near_crashesData;
+    //TODO: Cambiar los datos para que coincidan con el UI
 
-    public Trip(int idTrip, String date, int kinematicData, int localizationData, int near_crashesData) {
+    private int idTrip;
+    private String time;
+    private int capturedData;
+    private int nearcrashesData;
+    private int meanFrequency;
+
+
+    public Trip(int idTrip, String time, int capturedData, int nearcrashesData, int meanFrequency) {
         this.idTrip = idTrip;
-        this.date = date;
-        this.kinematicData = kinematicData;
-        this.localizationData = localizationData;
-        this.near_crashesData = near_crashesData;
+        this.time = time;
+        this.capturedData = capturedData;
+        this.meanFrequency = meanFrequency;
+        this.nearcrashesData = nearcrashesData;
     }
 
     public int getIdTrip() {
         return idTrip;
     }
 
-    public String getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
-    public int getKinematicData() {
-        return kinematicData;
+    public int getCapturedData() {
+        return capturedData;
     }
 
-    public int getLocalizationData() {
-        return localizationData;
+    public int getNearcrashesData() {
+        return nearcrashesData;
     }
 
-    public int getNear_crashesData() {
-        return near_crashesData;
+    public int getMeanFrequency() {
+        return meanFrequency;
     }
 
     public void setIdTrip(int idTrip) {
         this.idTrip = idTrip;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public void setKinematicData(int kinematicData) {
-        this.kinematicData = kinematicData;
+    public void setcapturedData(int capturedData) {
+        this.capturedData = capturedData;
     }
 
-    public void setLocalizationData(int localizationData) {
-        this.localizationData = localizationData;
+    public void setMeanFrequency(int meanFrequency) {
+        this.meanFrequency = meanFrequency;
     }
 
-    public void setNear_crashesData(int near_crashesData) {
-        this.near_crashesData = near_crashesData;
+    public void setNearcrashesData(int nearcrashesData) {
+        this.nearcrashesData = nearcrashesData;
     }
 }
 
