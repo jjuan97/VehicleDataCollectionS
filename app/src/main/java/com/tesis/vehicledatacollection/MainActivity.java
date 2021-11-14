@@ -4,6 +4,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.Manifest;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.tesis.vehicledatacollection.classes.LastVehicleRecord;
 import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 import com.tesis.vehicledatacollection.databinding.ActivityMainBinding;
 import com.tesis.vehicledatacollection.listeners.GyroscopeListener;
@@ -32,10 +35,17 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.tesis.vehicledatacollection.listeners.SavingDataTask;
 import com.tesis.vehicledatacollection.listeners.TmpVehicleDataState;
+import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
     TimerTask savingDataTask;
     Timer timer;
 
+    VehicleDataViewModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Creating Database Instance
         VehicleDatabaseSingleton.createDatabaseInstance(getApplicationContext());
+        model = new ViewModelProvider(this).get(VehicleDataViewModel.class);
 
         // Sensors Accelerometer, Gyroscope, Magnetometer
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -97,13 +110,16 @@ public class MainActivity extends AppCompatActivity {
 
             // Capture number in frequency edit text
             frequencyHz = binding.tripFrecuency.getText().toString();
+            String idVehicle = binding.idVehicle.getText().toString();
 
             // Check void frequency
-            if(frequencyHz.equals("")){
+            if(frequencyHz.equals("") ){
                 Toast.makeText(this, getText(R.string.error_frequency), Toast.LENGTH_LONG).show();
             }
+            else if(idVehicle.equals("")){
+                Toast.makeText(this, getText(R.string.error_vehicle_id), Toast.LENGTH_LONG).show();
+            }
             else {
-
                 recording = !recording;
                 String buttonMsg = recording ? getString(R.string.stop) : getString(R.string.start);
                 binding.buttonStartStop.setText(buttonMsg);
@@ -112,14 +128,17 @@ public class MainActivity extends AppCompatActivity {
                     // Transform frequency edit text to int
                     int f = Integer.parseInt(frequencyHz);
 
-                    sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / FREQUENCYHz);
-                    sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / FREQUENCYHz);
-                    sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / FREQUENCYHz);
-                    startLocationUpdates();
+                    TmpVehicleDataState.setIdVehicle(idVehicle);
+                    model.getLastRecord().subscribeOn(Schedulers.io())
+                        .subscribe(
+                            (lastRecord) -> {
+                                int lastIdTrip = (lastRecord.size() == 0) ? -1 : lastRecord.get(0).idTrip;
+                                Log.d("Database", "Last idTrip: " + lastIdTrip + "\n" +
+                                        "Current idTrip: " + (lastIdTrip+1) );
+                                TmpVehicleDataState.setIdTrip( lastIdTrip + 1 );
+                                startRecordingData(f);
+                            }, (throwable) -> Log.e("Error DB", throwable.getMessage()) );
 
-                    savingDataTask = new SavingDataTask();
-                    timer = new Timer(true);
-                    timer.scheduleAtFixedRate(savingDataTask, 250, 1000/ f);
                 } else {
                     timer.cancel();
                     sensorManager.unregisterListener(accelerometerListener);
@@ -147,6 +166,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
     }
+
+    private void startRecordingData(int f){
+        sensorManager.registerListener(accelerometerListener, accelerometer, 1000000 / FREQUENCYHz);
+        sensorManager.registerListener(gyroscopeListener, gyroscope, 1000000 / FREQUENCYHz);
+        sensorManager.registerListener(magnetometerListener, magnetometer, 1000000 / FREQUENCYHz);
+        startLocationUpdates();
+
+        savingDataTask = new SavingDataTask();
+        timer = new Timer(true);
+        timer.scheduleAtFixedRate(savingDataTask, 250, 1000/ f);
+    }
+
 
     // GPS functions
     private void gpsClientProvider() {

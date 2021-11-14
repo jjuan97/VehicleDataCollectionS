@@ -6,6 +6,14 @@ public class TmpVehicleDataState {
 
     private static VehicleData vehicleDataRecord = new VehicleData();
 
+    public static void setIdTrip (int idTrip){
+        vehicleDataRecord.setIdTrip(idTrip);
+    }
+
+    public static void setIdVehicle(String idVehicle){
+        vehicleDataRecord.setIdVehicle(idVehicle);
+    }
+
     public static void updateAccData (float[] accData) {
         vehicleDataRecord.setAccData(accData);
     }

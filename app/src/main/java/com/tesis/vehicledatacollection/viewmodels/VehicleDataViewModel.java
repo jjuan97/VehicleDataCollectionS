@@ -5,16 +5,20 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.tesis.vehicledatacollection.classes.LastVehicleRecord;
 import com.tesis.vehicledatacollection.classes.Trip;
 import com.tesis.vehicledatacollection.database.VehicleData;
 import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public class VehicleDataViewModel extends ViewModel {
 
     private LiveData<List<Trip>> tripData;
     private LiveData<List<VehicleData>> vehicleData;
+    private Single<List<LastVehicleRecord>> lastRecord;
 
 
     // Methods to define Trip Data
@@ -51,4 +55,13 @@ public class VehicleDataViewModel extends ViewModel {
                 .findVehicleDataById( position );
     }
 
+
+    // Get the last vehicle id
+    public Single<List<LastVehicleRecord>> getLastRecord(){
+        lastRecord = VehicleDatabaseSingleton
+                .getDatabaseInstance()
+                .vehicleDataDAO()
+                .getLastVehicleRecord();
+        return lastRecord;
+    }
 }

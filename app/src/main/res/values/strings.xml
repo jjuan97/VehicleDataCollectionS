@@ -29,4 +29,6 @@
     <string name="near_crashes_register">Near-crashes</string>
     <string name="frequency">Frecuencia</string>
     <string name="error_frequency">Invalido!! la frecuencia no debe ser 0</string>
+    <string name="error_vehicle_id">Ingrese un identificador para el vehiculo actual</string>
+    <string name="vehicle">Vehiculo</string>
 </resources>

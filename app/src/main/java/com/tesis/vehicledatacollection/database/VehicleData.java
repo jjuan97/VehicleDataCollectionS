@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 public class VehicleData {
     @PrimaryKey(autoGenerate = true)
     public long id;
-    public int idTravel;
+    public String idVehicle;
+    public int idTrip;
 
     @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
     public long timestamp;
@@ -30,6 +31,14 @@ public class VehicleData {
 
     public VehicleData () {
 
+    }
+
+    public void setIdVehicle(String idVehicle) {
+        this.idVehicle = idVehicle;
+    }
+
+    public void setIdTrip(int idTrip) {
+        this.idTrip = idTrip;
     }
 
     public void setAccData(float[] accData) {
@@ -65,8 +74,12 @@ public class VehicleData {
         return id;
     }
 
-    public int getIdTravel() {
-        return idTravel;
+    public String getIdVehicle(){
+        return idVehicle;
+    }
+
+    public int getidTrip() {
+        return idTrip;
     }
 
     public long getTimestamp() {
