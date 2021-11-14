@@ -3,11 +3,7 @@ package com.tesis.vehicledatacollection.listeners;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.os.AsyncTask;
-import android.util.Log;
 
-import com.tesis.vehicledatacollection.database.AccData;
-import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 import com.tesis.vehicledatacollection.databinding.ActivityMainBinding;
 
 import java.text.DecimalFormat;
@@ -49,37 +45,5 @@ public class AccelerometerListener implements SensorEventListener {
         binding.yAValue.setText(data[1]);
         binding.zAValue.setText(data[2]);
 
-        // TEST: Saving to DB
-        // AccData accData = new AccData(data[0], data[1], data[2]);
-        // saveAccData(accData);
-
-        /* String dataAccelerometer = "Tmp: " + timestamp + "\t" +
-                "xA = " + data[0] + "\t" +
-                "yA = " + data[1] + "\t" +
-                "zA = " + data[2]; */
-
-        // Log.d(ACCELEROMETER, dataAccelerometer);
-    }
-
-    private void saveAccData(AccData accData) {
-        class SaveData extends AsyncTask<Void, Void, Void> {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                //adding to database
-                VehicleDatabaseSingleton.getDatabaseInstance()
-                        .accDataDAO().insertAccData(accData);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                Log.d("Database: ", "AccData saved");
-            }
-        }
-
-        SaveData saveData = new SaveData();
-        saveData.execute();
     }
 }

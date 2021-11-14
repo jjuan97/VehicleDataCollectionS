@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VehicleDatacollection</string>
     <string name="sensors">Sensores</string>
@@ -19,6 +20,8 @@
     <string name="value_number">0</string>
     <string name="start">Comenzar</string>
     <string name="stop">Parar</string>
+    <string name="start_nc">Registrar NC</string>
+    <string name="stop_nc">Parar NC</string>
     <string name="trip_history">Historial de viajes</string>
     <string name="id">Id</string>
     <string name="timestamp">timestamp</string>
@@ -26,9 +29,14 @@
     <string name="time_lecture">Time</string>
     <string name="kinematic_data_register">Cinematicos</string>
     <string name="gps_data_register">GPS</string>
-    <string name="near_crashes_register">Near-crashes</string>
+    <string name="near_crashes_register">Datos <br/> Cinematicos <br/> Near-crashes</string>
     <string name="frequency">Frecuencia</string>
     <string name="error_frequency">Invalido!! la frecuencia no debe ser 0</string>
     <string name="error_vehicle_id">Ingrese un identificador para el vehiculo actual</string>
     <string name="vehicle">Vehiculo</string>
+    <string name="send_trip_data">Enviar Datos de Viaje</string>
+    <string name="id_vehicle">Id vehículo</string>
+    <string name="mean_frequency">Frecuencia promedio</string>
+    <string name="data_captured">Datos Capturados</string>
+    <string name="register_nc">Registrar NC</string>
 </resources>

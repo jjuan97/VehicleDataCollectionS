@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     // Variables that define how the data is captured.
     String frequencyHz;
     private boolean recording = false;
+    private boolean recordingNC = false;
     private final int FREQUENCYHz = 20;
     private final long gpsInterval = 1000/ FREQUENCYHz;
 
@@ -147,6 +148,16 @@ public class MainActivity extends AppCompatActivity {
                     stopLocationUpdates();
                 }
             }
+        });
+
+        // Button register near-crash
+        binding.buttonRegisterNc.setOnClickListener(viewNC -> {
+
+            recordingNC = !recordingNC;
+            String buttonMsg = recordingNC ? getString(R.string.stop_nc) : getString(R.string.start_nc);
+            binding.buttonRegisterNc.setText(buttonMsg);
+            TmpVehicleDataState.setEventClass(recordingNC);
+
         });
 
         // Go to Trip History
@@ -266,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             // Check the different Accelerometer sensors in this device
             List<Sensor> accelerometerSensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
-            Log.d("Acelerometer Sensor", accelerometerSensors.toString());
+            Log.d("Accelerometer Sensor", accelerometerSensors.toString());
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         } else {
             Log.d("error_sensor", "No accelerometer sensor in this device");

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tesis.vehicledatacollection.R;
 import com.tesis.vehicledatacollection.classes.Trip;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TripAdapter extends RecyclerView.Adapter implements View.OnClickListener{
@@ -58,7 +60,11 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
 
         Trip currentTrip = item.get(position);
         itemTripHolder.idTrip.setText(String.valueOf(currentTrip.getIdTrip()));
-        itemTripHolder.dateTrip.setText(currentTrip.getDate());
+
+        String pattern = "dd-MMM-yyyy HH:mm";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date(currentTrip.getTime()));
+        itemTripHolder.dateTrip.setText(date);
     }
 
     @Override
@@ -71,6 +77,8 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
         this.item = item;
         notifyDataSetChanged();
     }
+
+    // Get selected item in recycler view
 
     public Trip getTrip(int position){
         return item.get(position);

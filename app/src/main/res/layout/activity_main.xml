@@ -370,7 +370,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="4dp"
         android:ems="10"
         android:hint="Hz"
         android:inputType="number"
@@ -384,7 +384,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="4dp"
         android:text="@string/frequency"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/text_vehicle"
@@ -393,7 +393,7 @@
 
     <EditText
         android:id="@+id/id_vehicle"
-        android:layout_width="250dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
@@ -407,7 +407,7 @@
 
     <TextView
         android:id="@+id/text_vehicle"
-        android:layout_width="250dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
@@ -417,5 +417,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_frequency"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/button_register_nc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="30dp"
+        android:text="@string/register_nc"
+        app:cornerRadius="80dp"
+        android:backgroundTint="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

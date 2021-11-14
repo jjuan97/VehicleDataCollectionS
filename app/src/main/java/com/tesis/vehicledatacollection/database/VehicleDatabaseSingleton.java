@@ -7,7 +7,7 @@ import androidx.room.Room;
 public class VehicleDatabaseSingleton {
 
     private static VehicleDatabase database;
-    private static final String BD_NAME = "vehicle_data";
+    private static final String BD_NAME = "vehicle_data.db";
 
     private VehicleDatabaseSingleton(){
 

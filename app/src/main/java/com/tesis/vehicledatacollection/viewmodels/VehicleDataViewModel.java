@@ -23,18 +23,18 @@ public class VehicleDataViewModel extends ViewModel {
 
     // Methods to define Trip Data
 
-    public LiveData<List<Trip>> getTripData(int position){
+    public LiveData<List<Trip>> getTripData(){
         tripData = new MutableLiveData<List<Trip>>();
-        loadTripData(position);
+        loadTripData();
         return tripData;
     }
 
-    private void loadTripData(int position) {
+    private void loadTripData() {
         // Do an asynchronous operation to fetch users.
         tripData = VehicleDatabaseSingleton
                 .getDatabaseInstance()
                 .vehicleDataDAO()
-                .getAllTripData( position );
+                .getAllTripData();
     }
 
     // Methods to define Vehicle Data

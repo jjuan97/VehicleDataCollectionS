@@ -70,6 +70,10 @@ public class VehicleData {
         return timestamp;
     }
 
+    public void setEventClass(boolean eventClass) {
+        this.eventClass = eventClass;
+    }
+
     public long getId() {
         return id;
     }
