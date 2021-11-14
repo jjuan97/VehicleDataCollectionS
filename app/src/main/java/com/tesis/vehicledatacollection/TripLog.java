@@ -20,6 +20,10 @@ import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+
 public class TripLog extends AppCompatActivity {
 
     private ActivityTripLogBinding binding;
@@ -34,12 +38,19 @@ public class TripLog extends AppCompatActivity {
     List<Trip> trips = new ArrayList<>();
     List<VehicleData> vehicleDataList = new ArrayList<>();
 
+    App app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityTripLogBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        // Realm context (MongoDB)
+        /*Realm.init(this);
+        //app = new App(new AppConfiguration.Builder("vehicledatacollection-yxgtp")
+                .build());*/
 
         // Inflate button
         sendDataButton = binding.buttonSendData;
