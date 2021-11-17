@@ -11,6 +11,7 @@ import com.tesis.vehicledatacollection.classes.Trip;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
@@ -39,5 +40,8 @@ public interface VehicleDataDAO {
 
     @Query("SELECT id,idTrip FROM VehicleData ORDER BY id DESC LIMIT 1")
     public Single<List<LastVehicleRecord>> getLastVehicleRecord();
+
+    @Query("DELETE FROM vehicledata WHERE idTrip = :idTrip")
+    public Single<Integer> removeATrip(int idTrip);
 
 }

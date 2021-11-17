@@ -1,12 +1,14 @@
 package com.tesis.vehicledatacollection.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +21,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class TripAdapter extends RecyclerView.Adapter implements View.OnClickListener{
+public class TripAdapter extends RecyclerView.Adapter implements View.OnClickListener {
 
     List<Trip> item;
     private View.OnClickListener listener;
+    private View.OnLongClickListener longClickListener;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView idTrip;
         private final TextView dateTrip;
 
@@ -33,7 +36,9 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
             // Define click listener for the ViewHolder's View
             idTrip = view.findViewById(R.id.id_trip);
             dateTrip = view.findViewById(R.id.date_trip);
+            view.setOnLongClickListener(longClickListener);
         }
+
     }
 
     // Adapter constructor
@@ -87,6 +92,10 @@ public class TripAdapter extends RecyclerView.Adapter implements View.OnClickLis
     //card view listener
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
+    }
+
+    public void setOnLongClickListener(View.OnLongClickListener listener){
+        this.longClickListener = listener;
     }
 
     @Override

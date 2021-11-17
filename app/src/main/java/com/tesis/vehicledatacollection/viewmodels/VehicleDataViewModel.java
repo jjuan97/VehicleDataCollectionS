@@ -12,6 +12,7 @@ import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 public class VehicleDataViewModel extends ViewModel {
@@ -63,5 +64,13 @@ public class VehicleDataViewModel extends ViewModel {
                 .vehicleDataDAO()
                 .getLastVehicleRecord();
         return lastRecord;
+    }
+
+    // Remove a trip
+    public Single<Integer> removeATrip(int idTrip){
+         return VehicleDatabaseSingleton
+                 .getDatabaseInstance()
+                 .vehicleDataDAO()
+                 .removeATrip(idTrip);
     }
 }

@@ -1,10 +1,12 @@
 package com.tesis.vehicledatacollection;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,12 +16,16 @@ import android.widget.Toast;
 import com.tesis.vehicledatacollection.adapters.TripAdapter;
 import com.tesis.vehicledatacollection.classes.Trip;
 import com.tesis.vehicledatacollection.database.VehicleData;
+import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 import com.tesis.vehicledatacollection.databinding.ActivityTripLogBinding;
 import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
@@ -91,7 +97,13 @@ public class TripLog extends AppCompatActivity {
             sendDataButton.setEnabled(true);
             String buttonMsg = getString(R.string.send_trip_data) + " " + idTrip;
             sendDataButton.setText(buttonMsg);
+        });
 
+        adapter.setOnLongClickListener(v -> {
+            int pos = mRecyclerView.getChildAdapterPosition(v);
+            int idTrip = adapter.getTrip(pos).getIdTrip();
+            showRemoveTripDialog(idTrip, pos);
+            return true;
         });
 
         sendDataButton.setOnClickListener(viewB -> {
@@ -106,6 +118,36 @@ public class TripLog extends AppCompatActivity {
             // update UI
             adapter.setTrips(tripData);
         });
+    }
+
+    public void showRemoveTripDialog(int idTrip, int pos){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.msg_remove_trip) + idTrip)
+                .setTitle("Title")
+                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        removeTrip(idTrip, pos);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void removeTrip(int idTrip, int pos){
+        Log.d("Deleting", "id: "+idTrip);
+        model.removeATrip(idTrip).subscribeOn(Schedulers.io())
+                .subscribe((n) -> {
+                    Log.d("Deleting", ""+n);
+                    adapter.notifyItemRemoved(pos);
+                }, (throwable) -> Log.e("Error DB", throwable.getMessage()) );
     }
 
     public void sendDataMongoDB(){

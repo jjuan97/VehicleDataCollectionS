@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                         "Current idTrip: " + (lastIdTrip+1) );
                                 TmpVehicleDataState.setIdTrip( lastIdTrip + 1 );
                                 startRecordingData(f);
-                            }, (throwable) -> Log.e("Error DB", throwable.getMessage()) );
+                            } );
 
                 } else {
                     timer.cancel();

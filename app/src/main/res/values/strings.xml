@@ -39,4 +39,10 @@
     <string name="mean_frequency">Frecuencia promedio</string>
     <string name="data_captured">Datos Capturados</string>
     <string name="register_nc">Registrar NC</string>
+    <string name="title_remove_trip">Remover trayecto</string>
+    <string name="msg_remove_trip">Esta seguro de eliminar el trayecto con ID: </string>
+    <string name="OK">Sí, eliminar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="trip_removed">Trayecto Eliminado</string>
+
 </resources>
