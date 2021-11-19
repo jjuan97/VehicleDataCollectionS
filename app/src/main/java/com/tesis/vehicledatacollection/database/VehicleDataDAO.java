@@ -36,7 +36,7 @@ public interface VehicleDataDAO {
     public LiveData<List<Trip>> getAllTripData();
 
     @Query("SELECT * FROM VehicleData WHERE idTrip = :dataId")
-    public LiveData<List<VehicleData>> findVehicleDataById(int dataId);
+    public Single<List<VehicleData>> findVehicleDataById(int dataId);
 
     @Query("SELECT id,idTrip FROM VehicleData ORDER BY id DESC LIMIT 1")
     public Single<List<LastVehicleRecord>> getLastVehicleRecord();

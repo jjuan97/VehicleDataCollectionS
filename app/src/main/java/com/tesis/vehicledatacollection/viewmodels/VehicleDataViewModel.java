@@ -40,22 +40,13 @@ public class VehicleDataViewModel extends ViewModel {
 
     // Methods to define Vehicle Data
 
-    public LiveData<List<VehicleData>> getVehicleData(int position) {
-
+    public Single<List<VehicleData>> getVehicleData(int position) {
         // Get the vehicle data from database
-        vehicleData = new MutableLiveData<List<VehicleData>>();
-        loadVehicleData(position);
-        return vehicleData;
-    }
-
-    private void loadVehicleData(int position) {
-        // Do an asynchronous operation to fetch users.
-                vehicleData = VehicleDatabaseSingleton
+        return VehicleDatabaseSingleton
                 .getDatabaseInstance()
                 .vehicleDataDAO()
                 .findVehicleDataById( position );
     }
-
 
     // Get the last vehicle id
     public Single<List<LastVehicleRecord>> getLastRecord(){

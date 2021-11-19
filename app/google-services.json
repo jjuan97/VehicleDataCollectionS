@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882654484747",
+    "project_id": "vehicledatacollected",
+    "storage_bucket": "vehicledatacollected.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882654484747:android:1639016b388528dbb7aa0e",
+        "android_client_info": {
+          "package_name": "com.tesis.vehicledatacollection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882654484747-usc89br8psfkcj5fimrh4fnj4501h3kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH_f7dH41nJTws55FL4FMWgfpyeC1UoNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882654484747-usc89br8psfkcj5fimrh4fnj4501h3kt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

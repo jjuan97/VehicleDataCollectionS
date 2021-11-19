@@ -1,5 +1,6 @@
 package com.tesis.vehicledatacollection;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,14 +14,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.tesis.vehicledatacollection.adapters.TripAdapter;
 import com.tesis.vehicledatacollection.classes.Trip;
 import com.tesis.vehicledatacollection.database.VehicleData;
 import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
 import com.tesis.vehicledatacollection.databinding.ActivityTripLogBinding;
+import com.tesis.vehicledatacollection.firebase.TripFirebase;
 import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,6 +42,7 @@ public class TripLog extends AppCompatActivity {
 
     private ActivityTripLogBinding binding;
     private Button sendDataButton;
+    private DatabaseReference firebaseDB;
 
     public TripAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -41,6 +50,7 @@ public class TripLog extends AppCompatActivity {
 
     VehicleDataViewModel model;
     int idTrip;
+    Trip trip;
     List<Trip> trips = new ArrayList<>();
     List<VehicleData> vehicleDataList = new ArrayList<>();
 
@@ -52,11 +62,7 @@ public class TripLog extends AppCompatActivity {
         binding = ActivityTripLogBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        // Realm context (MongoDB)
-        /*Realm.init(this);
-        //app = new App(new AppConfiguration.Builder("vehicledatacollection-yxgtp")
-                .build());*/
+        firebaseDB = FirebaseDatabase.getInstance().getReference();
 
         // Inflate button
         sendDataButton = binding.buttonSendData;
@@ -84,7 +90,7 @@ public class TripLog extends AppCompatActivity {
         adapter.setOnClickListener(view1 -> {
 
             // Get object trip in item list
-            Trip trip = adapter.getTrip(mRecyclerView.getChildAdapterPosition(view1));
+            trip = adapter.getTrip(mRecyclerView.getChildAdapterPosition(view1));
 
             // Add data about trip
             binding.columnValue1.setText(String.valueOf(trip.getIdVehicle()));
@@ -108,7 +114,7 @@ public class TripLog extends AppCompatActivity {
 
         sendDataButton.setOnClickListener(viewB -> {
             //Toast.makeText(this,"Estoy Disponible",Toast.LENGTH_SHORT).show();
-            sendDataMongoDB();
+            sendDataFirebase();
         });
 
     }
@@ -150,13 +156,31 @@ public class TripLog extends AppCompatActivity {
                 }, (throwable) -> Log.e("Error DB", throwable.getMessage()) );
     }
 
-    public void sendDataMongoDB(){
+    public void sendDataFirebase(){
+        String pattern = "dd-MMM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        // Send all data from trip to MongoDB
-        model.getVehicleData(idTrip).observe(this, vehicleData -> {
-            // update UI
-            Toast.makeText(this,""+vehicleData.get(0).getTimestamp(),Toast.LENGTH_SHORT).show();
-            //binding.columnValue1.setText(String.valueOf(vehicleData.get(0).getAccX()));
+        String dateTrip = simpleDateFormat.format(new Date( trip.getTime() ) );
+        String vehicle = binding.columnValue1.getText().toString();
+        long kinematicData = Long.parseLong( binding.columnValue2.getText().toString() );
+
+        TripFirebase tripFirebase = new TripFirebase(dateTrip, vehicle, kinematicData);
+        DatabaseReference ref = firebaseDB.child("tripList").push();
+        ref.setValue(tripFirebase).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                String key = ref.getKey();
+                Log.d("firebase", "Document saved: "+key);
+
+                model.getVehicleData(idTrip).subscribeOn(Schedulers.io())
+                    .subscribe((tripList)-> {
+                        for (VehicleData data : tripList){
+                            firebaseDB.child("tripData/smartphone/"+key)
+                                    .child(String.valueOf( data.getId()) ).setValue(data);
+                        }
+                    });
+            }
         });
+
+
     }
 }
