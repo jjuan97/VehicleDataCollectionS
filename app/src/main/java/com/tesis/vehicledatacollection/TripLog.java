@@ -29,10 +29,15 @@ import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.mongodb.App;
@@ -50,6 +55,7 @@ public class TripLog extends AppCompatActivity {
 
     VehicleDataViewModel model;
     int idTrip;
+    int position;
     Trip trip;
     List<Trip> trips = new ArrayList<>();
     List<VehicleData> vehicleDataList = new ArrayList<>();
@@ -90,7 +96,8 @@ public class TripLog extends AppCompatActivity {
         adapter.setOnClickListener(view1 -> {
 
             // Get object trip in item list
-            trip = adapter.getTrip(mRecyclerView.getChildAdapterPosition(view1));
+            position = mRecyclerView.getChildAdapterPosition(view1);
+            trip = adapter.getTrip(position);
 
             // Add data about trip
             binding.columnValue1.setText(String.valueOf(trip.getIdVehicle()));
@@ -173,14 +180,25 @@ public class TripLog extends AppCompatActivity {
 
                 model.getVehicleData(idTrip).subscribeOn(Schedulers.io())
                     .subscribe((tripList)-> {
-                        for (VehicleData data : tripList){
-                            firebaseDB.child("tripData/smartphone/"+key)
-                                    .child(String.valueOf( data.getId()) ).setValue(data);
-                        }
+                        Map <String, Object> tripRecords = listToMap(tripList);
+                        firebaseDB.child("tripData/smartphone/"+key)
+                            .updateChildren(tripRecords)
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()){
+                                    removeTrip(idTrip, position);
+                                    Log.d("firebase", "All records uploaded");
+                                }
+                            });
                     });
             }
         });
+    }
 
-
+    public Map<String, Object> listToMap(List<VehicleData> list) {
+        Map<String, Object> map = new HashMap<>();
+        for (VehicleData data : list){
+            map.put( String.valueOf(data.getId()), data);
+        }
+        return map;
     }
 }
