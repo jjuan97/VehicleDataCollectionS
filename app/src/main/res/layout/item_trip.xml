@@ -14,7 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#A163FA">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -34,6 +35,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/id"
+                android:textAlignment="viewStart"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -43,6 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="30dp"
                 android:text="@string/timestamp"
                 android:textSize="16sp"
                 android:textStyle="italic"

@@ -44,5 +44,7 @@
     <string name="OK">Sí, eliminar</string>
     <string name="cancel">Cancelar</string>
     <string name="trip_removed">Trayecto Eliminado</string>
+    <string name="id_trip_title">Id viaje</string>
+    <string name="date_trip_title">Fecha viaje</string>
 
 </resources>

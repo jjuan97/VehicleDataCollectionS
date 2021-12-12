@@ -15,19 +15,55 @@
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/recycler_view_trip_history"
+        app:layout_constraintBottom_toTopOf="@id/id_trip_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <TextView
+        android:id="@+id/id_trip_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/id_trip_title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/recycler_view_trip_history"
+        app:layout_constraintEnd_toStartOf="@+id/date_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/date_title"
+        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/date_trip_title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/recycler_view_trip_history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/id_trip_title"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
+
+    <View
+        android:id="@+id/divider_title"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view_trip_history"
+        app:layout_constraintTop_toBottomOf="@+id/id_trip_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_trip_history"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         app:layout_constraintBottom_toTopOf="@id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toBottomOf="@id/divider_title">
 
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -36,8 +72,7 @@
         android:id="@+id/divider"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/linear_layout_log"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view_trip_history"
