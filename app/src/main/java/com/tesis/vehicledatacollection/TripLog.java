@@ -167,11 +167,12 @@ public class TripLog extends AppCompatActivity {
         String pattern = "dd-MMM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
+        String device = "Smartphone";
         String dateTrip = simpleDateFormat.format(new Date( trip.getTime() ) );
         String vehicle = binding.columnValue1.getText().toString();
         long kinematicData = Long.parseLong( binding.columnValue2.getText().toString() );
 
-        TripFirebase tripFirebase = new TripFirebase(dateTrip, vehicle, kinematicData);
+        TripFirebase tripFirebase = new TripFirebase(device, dateTrip, vehicle, kinematicData);
         DatabaseReference ref = firebaseDB.child("tripList").push();
         ref.setValue(tripFirebase).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
