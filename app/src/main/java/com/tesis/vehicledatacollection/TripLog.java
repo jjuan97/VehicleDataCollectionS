@@ -164,7 +164,7 @@ public class TripLog extends AppCompatActivity {
     }
 
     public void sendDataFirebase(){
-        String pattern = "dd-MMM-yyyy";
+        String pattern = "dd-MMM-yyyy hh:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         String device = "Smartphone";

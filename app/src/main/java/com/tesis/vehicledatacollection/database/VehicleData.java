@@ -27,7 +27,7 @@ public class VehicleData {
     public float magZ;
     public double latitude;
     public double longitude;
-    public boolean eventClass;
+    public int eventClass;
 
     public VehicleData () {
 
@@ -70,7 +70,7 @@ public class VehicleData {
         return timestamp;
     }
 
-    public void setEventClass(boolean eventClass) {
+    public void setEventClass(int eventClass) {
         this.eventClass = eventClass;
     }
 

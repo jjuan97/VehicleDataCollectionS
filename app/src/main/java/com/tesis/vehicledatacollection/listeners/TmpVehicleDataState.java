@@ -10,7 +10,7 @@ public class TmpVehicleDataState {
         vehicleDataRecord.setIdTrip(idTrip);
     }
 
-    public static void setEventClass (boolean eventClass){
+    public static void setEventClass (int eventClass){
         vehicleDataRecord.setEventClass(eventClass);
     }
 
