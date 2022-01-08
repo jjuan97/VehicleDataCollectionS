@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.tesis.vehicledatacollection.classes.LastVehicleRecord;
+import com.tesis.vehicledatacollection.classes.SimpleVehicleData;
 import com.tesis.vehicledatacollection.classes.Trip;
 import com.tesis.vehicledatacollection.database.VehicleData;
 import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
@@ -40,7 +41,7 @@ public class VehicleDataViewModel extends ViewModel {
 
     // Methods to define Vehicle Data
 
-    public Single<List<VehicleData>> getVehicleData(int position) {
+    public Single<List<SimpleVehicleData>> getVehicleData(int position) {
         // Get the vehicle data from database
         return VehicleDatabaseSingleton
                 .getDatabaseInstance()
@@ -63,5 +64,13 @@ public class VehicleDataViewModel extends ViewModel {
                  .getDatabaseInstance()
                  .vehicleDataDAO()
                  .removeATrip(idTrip);
+    }
+
+    // Hide a trip from the list
+    public Single<Integer> hideATrip(int idTrip){
+        return VehicleDatabaseSingleton
+                .getDatabaseInstance()
+                .vehicleDataDAO()
+                .hideATrip(idTrip);
     }
 }

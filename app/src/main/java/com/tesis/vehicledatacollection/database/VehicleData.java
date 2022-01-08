@@ -28,6 +28,7 @@ public class VehicleData {
     public double latitude;
     public double longitude;
     public int eventClass;
+    public int active; // 0 is not active, 1 is active
 
     public VehicleData () {
 
@@ -72,6 +73,10 @@ public class VehicleData {
 
     public void setEventClass(int eventClass) {
         this.eventClass = eventClass;
+    }
+
+    public void setActive (int active) {
+        this.active = active;
     }
 
     public long getId() {
@@ -136,5 +141,9 @@ public class VehicleData {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    public int getActive() {
+        return active;
     }
 }

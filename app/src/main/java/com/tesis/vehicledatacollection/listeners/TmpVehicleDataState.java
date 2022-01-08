@@ -36,6 +36,7 @@ public class TmpVehicleDataState {
 
     public static VehicleData getCurrentVehicleState(){
         vehicleDataRecord.setTimestamp();
+        vehicleDataRecord.setActive(1);
         return vehicleDataRecord;
     }
 

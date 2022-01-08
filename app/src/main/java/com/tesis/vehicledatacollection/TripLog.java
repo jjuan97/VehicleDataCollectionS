@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tesis.vehicledatacollection.adapters.TripAdapter;
+import com.tesis.vehicledatacollection.classes.SimpleVehicleData;
 import com.tesis.vehicledatacollection.classes.Trip;
 import com.tesis.vehicledatacollection.database.VehicleData;
 import com.tesis.vehicledatacollection.database.VehicleDatabaseSingleton;
@@ -48,6 +50,7 @@ public class TripLog extends AppCompatActivity {
     private ActivityTripLogBinding binding;
     private Button sendDataButton;
     private DatabaseReference firebaseDB;
+    private ProgressBar progressBar;
 
     public TripAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -82,6 +85,10 @@ public class TripLog extends AppCompatActivity {
 
         // Create layout manager to attached recycler view
         mLayoutManager = new LinearLayoutManager(view.getContext());
+
+        // Progress bar
+        progressBar = binding.progressBar;
+        progressBar.setVisibility(View.GONE);
 
         // Create recycler view and add features
         mRecyclerView = binding.recyclerViewTripHistory;
@@ -121,6 +128,7 @@ public class TripLog extends AppCompatActivity {
 
         sendDataButton.setOnClickListener(viewB -> {
             //Toast.makeText(this,"Estoy Disponible",Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.VISIBLE);
             sendDataFirebase();
         });
 
@@ -140,6 +148,7 @@ public class TripLog extends AppCompatActivity {
                 .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        progressBar.setVisibility(View.VISIBLE);
                         removeTrip(idTrip, pos);
                     }
                 })
@@ -159,6 +168,17 @@ public class TripLog extends AppCompatActivity {
         model.removeATrip(idTrip).subscribeOn(Schedulers.io())
                 .subscribe((n) -> {
                     Log.d("Deleting", ""+n);
+                    adapter.notifyItemRemoved(pos);
+                }, (throwable) -> Log.e("Error DB", throwable.getMessage()) );
+        progressBar.setVisibility(View.GONE);
+        Toast.makeText(this,"Datos borrados",Toast.LENGTH_SHORT).show();
+    }
+
+    public void hideTrip(int idTrip, int pos){
+        Log.d("Hidding", "id: "+idTrip);
+        model.hideATrip(idTrip).subscribeOn(Schedulers.io())
+                .subscribe((n) -> {
+                    Log.d("Hidding", ""+n);
                     adapter.notifyItemRemoved(pos);
                 }, (throwable) -> Log.e("Error DB", throwable.getMessage()) );
     }
@@ -186,8 +206,10 @@ public class TripLog extends AppCompatActivity {
                             .updateChildren(tripRecords)
                             .addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()){
-                                    removeTrip(idTrip, position);
+                                    hideTrip(idTrip, position);
                                     Log.d("firebase", "All records uploaded");
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(this,"Datos enviados",Toast.LENGTH_SHORT).show();
                                 }
                             });
                     });
@@ -195,9 +217,9 @@ public class TripLog extends AppCompatActivity {
         });
     }
 
-    public Map<String, Object> listToMap(List<VehicleData> list) {
+    public Map<String, Object> listToMap(List<SimpleVehicleData> list) {
         Map<String, Object> map = new HashMap<>();
-        for (VehicleData data : list){
+        for (SimpleVehicleData data : list){
             map.put( String.valueOf(data.getId()), data);
         }
         return map;
