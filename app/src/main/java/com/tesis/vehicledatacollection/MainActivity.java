@@ -19,6 +19,8 @@ import android.os.Looper;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.tesis.vehicledatacollection.classes.LastVehicleRecord;
@@ -50,6 +52,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private Spinner spnVehicles;
+    private Spinner spnRoutes;
 
     // Variables for kinematic data.
     private SensorManager sensorManager;
@@ -88,6 +92,20 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        // Setup Spinners
+        spnVehicles = (Spinner) binding.spnVehicles;
+        spnRoutes = (Spinner) binding.spnRoutes;
+
+        ArrayAdapter<CharSequence> adapterSpnVehicles = ArrayAdapter.createFromResource(this,
+                R.array.vehicles_array, android.R.layout.simple_spinner_item);
+        adapterSpnVehicles.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnVehicles.setAdapter(adapterSpnVehicles);
+
+        ArrayAdapter<CharSequence> adapterSpnRoutes = ArrayAdapter.createFromResource(this,
+                R.array.routes_array, android.R.layout.simple_spinner_item);
+        adapterSpnRoutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnRoutes.setAdapter(adapterSpnRoutes);
+
         // Creating Database Instance
         VehicleDatabaseSingleton.createDatabaseInstance(getApplicationContext());
         model = new ViewModelProvider(this).get(VehicleDataViewModel.class);
@@ -111,7 +129,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Capture number in frequency edit text
             frequencyHz = binding.tripFrecuency.getText().toString();
-            String idVehicle = binding.idVehicle.getText().toString();
+            String idVehicle = spnVehicles.getSelectedItem().toString();
+            String route = spnRoutes.getSelectedItem().toString();
 
             // Check void frequency
             if(frequencyHz.equals("") ){
@@ -130,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     int f = Integer.parseInt(frequencyHz);
 
                     TmpVehicleDataState.setIdVehicle(idVehicle);
+                    TmpVehicleDataState.setRoute(route);
                     model.getLastRecord().subscribeOn(Schedulers.io())
                         .subscribe(
                             (lastRecord) -> {

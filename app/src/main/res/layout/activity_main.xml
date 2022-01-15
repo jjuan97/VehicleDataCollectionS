@@ -260,7 +260,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="26dp"
             android:text="@string/gps" />
 
         <LinearLayout
@@ -345,7 +345,7 @@
         android:id="@+id/button_start_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="192dp"
         android:text="@string/start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -374,7 +374,8 @@
         android:ems="10"
         android:hint="Hz"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/id_vehicle"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/spn_vehicles"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_frequency" />
 
@@ -390,20 +391,6 @@
         app:layout_constraintEnd_toStartOf="@+id/text_vehicle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <EditText
-        android:id="@+id/id_vehicle"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="ID vehiculo"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/trip_frecuency"
-        app:layout_constraintTop_toBottomOf="@+id/text_vehicle" />
 
     <TextView
         android:id="@+id/text_vehicle"
@@ -431,5 +418,40 @@
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spn_vehicles"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/trip_frecuency"
+        app:layout_constraintTop_toBottomOf="@+id/text_vehicle" />
+
+    <TextView
+        android:id="@+id/text_routes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/route"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trip_frecuency" />
+
+    <Spinner
+        android:id="@+id/spn_routes"
+        android:layout_width="164dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_routes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

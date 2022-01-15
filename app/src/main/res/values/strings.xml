@@ -34,6 +34,7 @@
     <string name="error_frequency">Invalido!! la frecuencia no debe ser 0</string>
     <string name="error_vehicle_id">Ingrese un identificador para el vehiculo actual</string>
     <string name="vehicle">Vehiculo</string>
+    <string name="route">Ruta</string>
     <string name="send_trip_data">Enviar Datos de Viaje</string>
     <string name="id_vehicle">Id vehículo</string>
     <string name="mean_frequency">Frecuencia promedio</string>
@@ -46,5 +47,23 @@
     <string name="trip_removed">Trayecto Eliminado</string>
     <string name="id_trip_title">Id viaje</string>
     <string name="date_trip_title">Fecha viaje</string>
+    <string name="id_route">Id ruta</string>
+
+    <!-- Spinners' Arrays -->
+    <string name="readable_spn_vehicles">Lista de vehículos</string>
+    <string-array name="vehicles_array">
+        <item>Vehículo 1</item>
+        <item>Vehículo 2</item>
+        <item>Vehículo 3</item>
+        <item>Vehículo 4</item>
+    </string-array>
+
+    <string name="readable_spn_routes">Lista de rutas</string>
+    <string-array name="routes_array">
+        <item>Ruta 1</item>
+        <item>Ruta 2</item>
+        <item>Ruta 3</item>
+        <item>Ruta 4</item>
+    </string-array>
 
 </resources>

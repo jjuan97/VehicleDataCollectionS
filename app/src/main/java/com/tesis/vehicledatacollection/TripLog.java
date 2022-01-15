@@ -111,6 +111,7 @@ public class TripLog extends AppCompatActivity {
             binding.columnValue2.setText(String.valueOf(trip.getCapturedData()));
             binding.columnValue3.setText(String.valueOf(trip.getNearcrashesData()));
             binding.columnValue4.setText(String.valueOf(trip.getMeanFrequency()));
+            binding.columnValue5.setText("");
 
             // Add functionality to send button
             idTrip = trip.getIdTrip();

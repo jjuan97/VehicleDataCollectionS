@@ -11,6 +11,7 @@ public class VehicleData {
     @PrimaryKey(autoGenerate = true)
     public long id;
     public String idVehicle;
+    public String route;
     public int idTrip;
 
     @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
@@ -32,6 +33,10 @@ public class VehicleData {
 
     public VehicleData () {
 
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public void setIdVehicle(String idVehicle) {
@@ -146,4 +151,9 @@ public class VehicleData {
     public int getActive() {
         return active;
     }
+
+    public String getRoute() {
+        return route;
+    }
+
 }

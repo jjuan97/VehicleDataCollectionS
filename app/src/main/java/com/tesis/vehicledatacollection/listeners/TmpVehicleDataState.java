@@ -18,6 +18,10 @@ public class TmpVehicleDataState {
         vehicleDataRecord.setIdVehicle(idVehicle);
     }
 
+    public static void setRoute(String route){
+        vehicleDataRecord.setRoute(route);
+    }
+
     public static void updateAccData (float[] accData) {
         vehicleDataRecord.setAccData(accData);
     }
