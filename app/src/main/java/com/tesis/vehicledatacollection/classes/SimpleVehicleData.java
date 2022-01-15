@@ -6,6 +6,7 @@ public class SimpleVehicleData {
 
     public long id;
     public String idVehicle;
+    public String route;
     public int idTrip;
     public long timestamp;
     public float speed;
@@ -22,9 +23,10 @@ public class SimpleVehicleData {
     public double longitude;
     public int eventClass;
 
-    public SimpleVehicleData(long id, String idVehicle, int idTrip, long timestamp, float speed, float accX, float accY, float accZ, float velAngX, float velAngY, float velAngZ, float magX, float magY, float magZ, double latitude, double longitude, int eventClass) {
+    public SimpleVehicleData(long id, String idVehicle, String route, int idTrip, long timestamp, float speed, float accX, float accY, float accZ, float velAngX, float velAngY, float velAngZ, float magX, float magY, float magZ, double latitude, double longitude, int eventClass) {
         this.id = id;
         this.idVehicle = idVehicle;
+        this.route = route;
         this.idTrip = idTrip;
         this.timestamp = timestamp;
         this.speed = speed;
@@ -48,6 +50,10 @@ public class SimpleVehicleData {
 
     public String getIdVehicle() {
         return idVehicle;
+    }
+
+    public String getRoute() {
+        return route;
     }
 
     public int getIdTrip() {
@@ -116,6 +122,10 @@ public class SimpleVehicleData {
 
     public void setIdVehicle(String idVehicle) {
         this.idVehicle = idVehicle;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public void setIdTrip(int idTrip) {

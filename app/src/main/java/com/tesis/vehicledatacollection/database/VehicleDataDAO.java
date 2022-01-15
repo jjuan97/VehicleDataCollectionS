@@ -32,12 +32,13 @@ public interface VehicleDataDAO {
             " idVehicle," +
             " COUNT(accX) AS capturedData," +
             " SUM(eventClass) AS nearcrashesData," +
-            " AVG(id) AS meanFrequency" +
+            " AVG(id) AS meanFrequency," +
+            " route" +
             " FROM VehicleData WHERE active = 1 " +
             " GROUP BY idTrip")
     public LiveData<List<Trip>> getAllTripData();
 
-    @Query("SELECT id, idVehicle, idTrip, timestamp, eventClass," +
+    @Query("SELECT id, idVehicle, route, idTrip, timestamp, eventClass," +
             " accX, accY, accZ," +
             " velAngX, velAngY, velAngZ," +
             " magX, magY, magZ," +

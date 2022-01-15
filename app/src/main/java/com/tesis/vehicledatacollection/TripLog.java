@@ -111,7 +111,7 @@ public class TripLog extends AppCompatActivity {
             binding.columnValue2.setText(String.valueOf(trip.getCapturedData()));
             binding.columnValue3.setText(String.valueOf(trip.getNearcrashesData()));
             binding.columnValue4.setText(String.valueOf(trip.getMeanFrequency()));
-            binding.columnValue5.setText("");
+            binding.columnValue5.setText(trip.getRoute());
 
             // Add functionality to send button
             idTrip = trip.getIdTrip();
@@ -191,9 +191,10 @@ public class TripLog extends AppCompatActivity {
         String device = "Smartphone";
         String dateTrip = simpleDateFormat.format(new Date( trip.getTime() ) );
         String vehicle = binding.columnValue1.getText().toString();
+        String route = binding.columnValue5.getText().toString();
         long kinematicData = Long.parseLong( binding.columnValue2.getText().toString() );
 
-        TripFirebase tripFirebase = new TripFirebase(device, dateTrip, vehicle, kinematicData);
+        TripFirebase tripFirebase = new TripFirebase(device, dateTrip, vehicle, kinematicData, route);
         DatabaseReference ref = firebaseDB.child("tripList").push();
         ref.setValue(tripFirebase).addOnCompleteListener(task -> {
             if (task.isSuccessful()){

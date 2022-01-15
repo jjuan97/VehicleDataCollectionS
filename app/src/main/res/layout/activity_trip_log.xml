@@ -103,7 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/id_vehicle" />
+                android:text="@string/id_vehicle"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/column_title_2"
@@ -111,15 +112,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
-                android:text="@string/data_captured" />
+                android:text="@string/data_captured"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/column_title_3"
-                android:layout_width="85dp"
+                android:layout_width="86dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
-                android:text="@string/near_crashes_register" />
+                android:text="@string/near_crashes_register"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/column_title_4"
@@ -127,7 +130,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
-                android:text="@string/mean_frequency" />
+                android:text="@string/mean_frequency"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -153,13 +157,14 @@
                 android:layout_marginStart="4dp"
                 android:text="@string/value_number"
                 android:gravity="center"/>
+
             <TextView
                 android:id="@+id/column_value_3"
-                android:layout_width="85dp"
+                android:layout_width="86dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@string/value_number"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="@string/value_number" />
             <TextView
                 android:id="@+id/column_value_4"
                 android:layout_width="85dp"
@@ -184,7 +189,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="@string/id_route" />
+                android:text="@string/id_route"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -201,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/value" />
+                android:text="@string/value_number" />
         </LinearLayout>
 
         <Button
