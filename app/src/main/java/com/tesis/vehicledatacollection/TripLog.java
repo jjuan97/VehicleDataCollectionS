@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -185,7 +186,7 @@ public class TripLog extends AppCompatActivity {
     }
 
     public void sendDataFirebase(){
-        String pattern = "dd-MMM-yyyy hh:mm";
+        String pattern = "dd-MMM-yyyy HH:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         String device = "Smartphone";

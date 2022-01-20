@@ -39,6 +39,7 @@ import com.tesis.vehicledatacollection.listeners.SavingDataTask;
 import com.tesis.vehicledatacollection.listeners.TmpVehicleDataState;
 import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -175,7 +176,9 @@ public class MainActivity extends AppCompatActivity {
 
             recordingNC ^= 1;
             String buttonMsg = (recordingNC == 1) ? getString(R.string.stop_nc) : getString(R.string.start_nc);
+            int buttonColor = (recordingNC == 1) ? R.color.blue : R.color.pink;
             binding.buttonRegisterNc.setText(buttonMsg);
+            binding.buttonRegisterNc.setBackgroundColor(getResources().getColor(buttonColor));
             TmpVehicleDataState.setEventClass(recordingNC);
 
         });
@@ -263,10 +266,12 @@ public class MainActivity extends AppCompatActivity {
 
                     TmpVehicleDataState.updateGpsData(latitude, longitude, speed);
 
-                    binding.latitudeValue.setText(String.valueOf(latitude));
-                    binding.longitudeValue.setText(String.valueOf(longitude));
-                    binding.altitudeValue.setText(String.valueOf(altitude));
-                    binding.speedValue.setText(String.valueOf(speed));
+                    // Show GPS data
+                    DecimalFormat formatNumbers = new DecimalFormat("##0.00");
+                    binding.latitudeValue.setText(formatNumbers.format(latitude));
+                    binding.longitudeValue.setText(formatNumbers.format(longitude));
+                    binding.altitudeValue.setText(formatNumbers.format(altitude));
+                    binding.speedValue.setText(formatNumbers.format(speed));
                 }
             }
         };
