@@ -11,6 +11,7 @@ public class VehicleData {
     @PrimaryKey(autoGenerate = true)
     public long id;
     public String idVehicle;
+    public String route;
     public int idTrip;
 
     @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
@@ -27,10 +28,15 @@ public class VehicleData {
     public float magZ;
     public double latitude;
     public double longitude;
-    public boolean eventClass;
+    public int eventClass;
+    public int active; // 0 is not active, 1 is active
 
     public VehicleData () {
 
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public void setIdVehicle(String idVehicle) {
@@ -70,8 +76,12 @@ public class VehicleData {
         return timestamp;
     }
 
-    public void setEventClass(boolean eventClass) {
+    public void setEventClass(int eventClass) {
         this.eventClass = eventClass;
+    }
+
+    public void setActive (int active) {
+        this.active = active;
     }
 
     public long getId() {
@@ -137,4 +147,13 @@ public class VehicleData {
     public double getLongitude() {
         return longitude;
     }
+
+    public int getActive() {
+        return active;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
 }

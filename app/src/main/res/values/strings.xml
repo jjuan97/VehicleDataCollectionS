@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">VehicleDatacollection</string>
     <string name="sensors">Sensores</string>
+    <string name="trip_data">Información viaje</string>
     <string name="accelerometer">Acelerómetro</string>
     <string name="gyroscope">Giróscopio</string>
     <string name="magnetometer">Magnetómetro</string>
@@ -20,8 +21,8 @@
     <string name="value_number">0</string>
     <string name="start">Comenzar</string>
     <string name="stop">Parar</string>
-    <string name="start_nc">Registrar NC</string>
-    <string name="stop_nc">Parar NC</string>
+    <string name="start_nc">Near Crash</string>
+    <string name="stop_nc">Parar\nNear Crash</string>
     <string name="trip_history">Historial de viajes</string>
     <string name="id">Id</string>
     <string name="timestamp">timestamp</string>
@@ -34,15 +35,39 @@
     <string name="error_frequency">Invalido!! la frecuencia no debe ser 0</string>
     <string name="error_vehicle_id">Ingrese un identificador para el vehiculo actual</string>
     <string name="vehicle">Vehiculo</string>
+    <string name="route">Ruta</string>
     <string name="send_trip_data">Enviar Datos de Viaje</string>
     <string name="id_vehicle">Id vehículo</string>
     <string name="mean_frequency">Frecuencia promedio</string>
     <string name="data_captured">Datos Capturados</string>
-    <string name="register_nc">Registrar NC</string>
+    <string name="register_nc">Near Crash</string>
     <string name="title_remove_trip">Remover trayecto</string>
     <string name="msg_remove_trip">Esta seguro de eliminar el trayecto con ID: </string>
     <string name="OK">Sí, eliminar</string>
     <string name="cancel">Cancelar</string>
     <string name="trip_removed">Trayecto Eliminado</string>
+    <string name="id_trip_title">Id viaje</string>
+    <string name="date_trip_title">Fecha viaje</string>
+    <string name="id_route">Id ruta</string>
+    <string name="hz">Hz</string>
+    <string name="collect_data">Recolección de datos</string>
+
+    <!-- Spinners' Arrays -->
+    <string name="readable_spn_vehicles">Lista de vehículos</string>
+    <string-array name="vehicles_array">
+        <item>Vehículo 1</item>
+        <item>Vehículo 2</item>
+        <item>Vehículo 3</item>
+        <item>Vehículo 4</item>
+    </string-array>
+
+    <string name="readable_spn_routes">Lista de rutas</string>
+    <string name="additional_info">Información adicional</string>
+    <string-array name="routes_array">
+        <item>Ruta 1</item>
+        <item>Ruta 2</item>
+        <item>Ruta 3</item>
+        <item>Ruta 4</item>
+    </string-array>
 
 </resources>

@@ -10,12 +10,16 @@ public class TmpVehicleDataState {
         vehicleDataRecord.setIdTrip(idTrip);
     }
 
-    public static void setEventClass (boolean eventClass){
+    public static void setEventClass (int eventClass){
         vehicleDataRecord.setEventClass(eventClass);
     }
 
     public static void setIdVehicle(String idVehicle){
         vehicleDataRecord.setIdVehicle(idVehicle);
+    }
+
+    public static void setRoute(String route){
+        vehicleDataRecord.setRoute(route);
     }
 
     public static void updateAccData (float[] accData) {
@@ -36,6 +40,7 @@ public class TmpVehicleDataState {
 
     public static VehicleData getCurrentVehicleState(){
         vehicleDataRecord.setTimestamp();
+        vehicleDataRecord.setActive(1);
         return vehicleDataRecord;
     }
 

@@ -19,6 +19,8 @@ import android.os.Looper;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.tesis.vehicledatacollection.classes.LastVehicleRecord;
@@ -37,6 +39,7 @@ import com.tesis.vehicledatacollection.listeners.SavingDataTask;
 import com.tesis.vehicledatacollection.listeners.TmpVehicleDataState;
 import com.tesis.vehicledatacollection.viewmodels.VehicleDataViewModel;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,6 +53,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private Spinner spnVehicles;
+    private Spinner spnRoutes;
 
     // Variables for kinematic data.
     private SensorManager sensorManager;
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     // Variables that define how the data is captured.
     String frequencyHz;
     private boolean recording = false;
-    private boolean recordingNC = false;
+    private int recordingNC = 0;
     private final int FREQUENCYHz = 20;
     private final long gpsInterval = 1000/ FREQUENCYHz;
 
@@ -87,6 +92,20 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        // Setup Spinners
+        spnVehicles = (Spinner) binding.spnVehicles;
+        spnRoutes = (Spinner) binding.spnRoutes;
+
+        ArrayAdapter<CharSequence> adapterSpnVehicles = ArrayAdapter.createFromResource(this,
+                R.array.vehicles_array, android.R.layout.simple_spinner_item);
+        adapterSpnVehicles.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnVehicles.setAdapter(adapterSpnVehicles);
+
+        ArrayAdapter<CharSequence> adapterSpnRoutes = ArrayAdapter.createFromResource(this,
+                R.array.routes_array, android.R.layout.simple_spinner_item);
+        adapterSpnRoutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnRoutes.setAdapter(adapterSpnRoutes);
 
         // Creating Database Instance
         VehicleDatabaseSingleton.createDatabaseInstance(getApplicationContext());
@@ -111,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Capture number in frequency edit text
             frequencyHz = binding.tripFrecuency.getText().toString();
-            String idVehicle = binding.idVehicle.getText().toString();
+            String idVehicle = spnVehicles.getSelectedItem().toString();
+            String route = spnRoutes.getSelectedItem().toString();
 
             // Check void frequency
             if(frequencyHz.equals("") ){
@@ -130,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     int f = Integer.parseInt(frequencyHz);
 
                     TmpVehicleDataState.setIdVehicle(idVehicle);
+                    TmpVehicleDataState.setRoute(route);
                     model.getLastRecord().subscribeOn(Schedulers.io())
                         .subscribe(
                             (lastRecord) -> {
@@ -153,9 +174,11 @@ public class MainActivity extends AppCompatActivity {
         // Button register near-crash
         binding.buttonRegisterNc.setOnClickListener(viewNC -> {
 
-            recordingNC = !recordingNC;
-            String buttonMsg = recordingNC ? getString(R.string.stop_nc) : getString(R.string.start_nc);
+            recordingNC ^= 1;
+            String buttonMsg = (recordingNC == 1) ? getString(R.string.stop_nc) : getString(R.string.start_nc);
+            int buttonColor = (recordingNC == 1) ? R.color.blue : R.color.pink;
             binding.buttonRegisterNc.setText(buttonMsg);
+            binding.buttonRegisterNc.setBackgroundColor(getResources().getColor(buttonColor));
             TmpVehicleDataState.setEventClass(recordingNC);
 
         });
@@ -229,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
                         altitude = location.getAltitude();
-                        speed = location.getSpeed();
+                        speed = location.getSpeed() * 3.6f;  // Speed in km/h
                     } else {
                         latitude = 0.0;
                         longitude = 0.0;
@@ -243,11 +266,12 @@ public class MainActivity extends AppCompatActivity {
 
                     TmpVehicleDataState.updateGpsData(latitude, longitude, speed);
 
-                    binding.latitudeValue.setText(String.valueOf(latitude));
-                    binding.longitudeValue.setText(String.valueOf(longitude));
-                    binding.altitudeValue.setText(String.valueOf(altitude));
-                    // TODO: transform to km/h actually is m/s
-                    binding.speedValue.setText(String.valueOf(speed));
+                    // Show GPS data
+                    DecimalFormat formatNumbers = new DecimalFormat("##0.00");
+                    binding.latitudeValue.setText(formatNumbers.format(latitude));
+                    binding.longitudeValue.setText(formatNumbers.format(longitude));
+                    binding.altitudeValue.setText(formatNumbers.format(altitude));
+                    binding.speedValue.setText(formatNumbers.format(speed));
                 }
             }
         };

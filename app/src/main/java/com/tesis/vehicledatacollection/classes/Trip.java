@@ -10,9 +10,10 @@ public class Trip {
     private int capturedData;
     private int nearcrashesData;
     private float meanFrequency;
+    private String route;
 
 
-    public Trip(int idTrip, long time, long maxTime, String idVehicle, int capturedData, int nearcrashesData, float meanFrequency) {
+    public Trip(int idTrip, long time, long maxTime, String idVehicle, int capturedData, int nearcrashesData, float meanFrequency, String route) {
         this.idTrip = idTrip;
         this.time = time;
         this.maxTime = maxTime;
@@ -20,6 +21,7 @@ public class Trip {
         this.capturedData = capturedData;
         this.meanFrequency = meanFrequency;
         this.nearcrashesData = nearcrashesData;
+        this.route = route;
     }
 
     public int getIdTrip() {
@@ -50,6 +52,10 @@ public class Trip {
         return (float) (capturedData*1000)/(maxTime-time);
     }
 
+    public String getRoute() {
+        return route;
+    }
+
     public void setIdTrip(int idTrip) {
         this.idTrip = idTrip;
     }
@@ -72,6 +78,10 @@ public class Trip {
 
     public void setNearcrashesData(int nearcrashesData) {
         this.nearcrashesData = nearcrashesData;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 }
 
