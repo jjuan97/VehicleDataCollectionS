@@ -195,7 +195,7 @@ public class TripLog extends AppCompatActivity {
         String route = binding.columnValue5.getText().toString();
         long kinematicData = Long.parseLong( binding.columnValue2.getText().toString() );
 
-        TripFirebase tripFirebase = new TripFirebase(device, dateTrip, vehicle, kinematicData, route);
+        TripFirebase tripFirebase = new TripFirebase(idTrip, device, dateTrip, vehicle, kinematicData, route);
         DatabaseReference ref = firebaseDB.child("tripList").push();
         ref.setValue(tripFirebase).addOnCompleteListener(task -> {
             if (task.isSuccessful()){

@@ -53,21 +53,23 @@
     <string name="collect_data">Recolección de datos</string>
 
     <!-- Spinners' Arrays -->
-    <string name="readable_spn_vehicles">Lista de vehículos</string>
     <string-array name="vehicles_array">
-        <item>Vehículo 1</item>
-        <item>Vehículo 2</item>
-        <item>Vehículo 3</item>
-        <item>Vehículo 4</item>
+        <item>Renault Stepway (Huawei Mate 20 Lite)</item>
+        <item>Renault Stepway (Xiaomi Redmi Note 9S)</item>
+        <item>Kia Picanto (Huawei Mate 20 Lite)</item>
+        <item>Kia Picanto (Xiaomi Redmi Note 9S)</item>
     </string-array>
 
     <string name="readable_spn_routes">Lista de rutas</string>
     <string name="additional_info">Información adicional</string>
     <string-array name="routes_array">
-        <item>Ruta 1</item>
-        <item>Ruta 2</item>
-        <item>Ruta 3</item>
-        <item>Ruta 4</item>
+        <item>Aceleración repentina</item>
+        <item>Frenada repentina</item>
+        <item>Giro derecho agresivo</item>
+        <item>Giro izquierdo agresivo</item>
+        <item>Cambio de línea agresivo derecha</item>
+        <item>Cambio de línea agresivo izquierda</item>
+        <item>Conducción por Ipiales</item>
     </string-array>
 
 </resources>

@@ -4,6 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class TripFirebase {
+    public int tripLocalId;
     public String device;
     public String date;
     public String vehicle;
@@ -14,7 +15,8 @@ public class TripFirebase {
 
     }
 
-    public TripFirebase(String device, String date, String vehicle, long kinematicData, String route) {
+    public TripFirebase(int tripLocalId, String device, String date, String vehicle, long kinematicData, String route) {
+        this.tripLocalId = tripLocalId;
         this.device = device;
         this.date = date;
         this.vehicle = vehicle;
