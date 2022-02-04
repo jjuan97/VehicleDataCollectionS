@@ -221,9 +221,11 @@ public class TripLog extends AppCompatActivity {
     }
 
     public Map<String, Object> listToMap(List<SimpleVehicleData> list) {
+        int counter = 1;
         Map<String, Object> map = new HashMap<>();
         for (SimpleVehicleData data : list){
-            map.put( String.valueOf(data.getId()), data);
+            map.put( "row "+ counter, data);
+            counter += 1;
         }
         return map;
     }
