@@ -63,6 +63,8 @@ public class TripLog extends AppCompatActivity {
     Trip trip;
     List<Trip> trips = new ArrayList<>();
     List<VehicleData> vehicleDataList = new ArrayList<>();
+    int indexToUpload = 0;
+    int counter = 1;
 
     App app;
 
@@ -204,24 +206,61 @@ public class TripLog extends AppCompatActivity {
 
                 model.getVehicleData(idTrip).subscribeOn(Schedulers.io())
                     .subscribe((tripList)-> {
-                        Map <String, Object> tripRecords = listToMap(tripList);
-                        firebaseDB.child("tripData/smartphone/"+key)
-                            .updateChildren(tripRecords)
-                            .addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()){
-                                    hideTrip(idTrip, position);
-                                    Log.d("firebase", "All records uploaded");
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(this,"Datos enviados",Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        ArrayList<Map <String, Object>> tripRecords = listToMaps(tripList);
+                        Log.d("UPLOAD", "STARTING");
+
+                        uploadRecords(tripRecords, key);
+
+
                     });
             }
         });
     }
 
+    public void uploadRecords(List<Map<String, Object>> tripRecordPart, String key){
+        if (indexToUpload < tripRecordPart.size()){
+            firebaseDB.child("tripData/smartphone/"+key)
+                    .updateChildren(tripRecordPart.get(indexToUpload))
+                    .addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()){
+                            uploadRecords(tripRecordPart, key);
+                            indexToUpload += 1;
+                        }
+                        else {
+                            Log.d("firebase", "Something failed at " + indexToUpload);
+                            counter = 1;
+                        }
+                    });
+        }
+        else {
+            hideTrip(idTrip, position);
+            Log.d("firebase", "All records uploaded");
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(this,"Datos enviados",Toast.LENGTH_SHORT).show();
+            indexToUpload = 0;
+            counter = 1;
+        }
+
+
+    }
+
+    public ArrayList<Map<String, Object>> listToMaps (List<SimpleVehicleData> fullList) {
+        ArrayList<Map<String, Object>> tripRecords = new ArrayList<>();
+
+        final int limit = fullList.size();
+        final int splitAmount = 10000;
+        int from = 0;
+
+        while (from <= limit) {
+            int to = Math.min((from + splitAmount), fullList.size());
+
+            tripRecords.add( listToMap(fullList.subList(from, to)) );
+            from += splitAmount;
+        }
+        return tripRecords;
+    }
+
     public Map<String, Object> listToMap(List<SimpleVehicleData> list) {
-        int counter = 1;
         Map<String, Object> map = new HashMap<>();
         for (SimpleVehicleData data : list){
             map.put( "row "+ counter, data);

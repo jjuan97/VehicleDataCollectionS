@@ -57,23 +57,21 @@
     <string-array name="vehicles_array">
         <item>Test (Huawei Mate 20 Lite)</item>
         <item>Test (Xiaomi Redmi Note 9S)</item>
-        <item>Renault Stepway (Huawei Mate 20 Lite)</item>
-        <item>Renault Stepway (Xiaomi Redmi Note 9S)</item>
-        <item>Nissan March (Huawei Mate 20 Lite)</item>
-        <item>Nissan March (Xiaomi Redmi Note 9S)</item>
+        <item>Vehículo 1 (Huawei Mate 20 Lite)</item>
+        <item>Vehículo 1 (Xiaomi Redmi Note 9S)</item>
+        <item>Vehículo 2 (Huawei Mate 20 Lite)</item>
+        <item>Vehículo 2 (Xiaomi Redmi Note 9S)</item>
     </string-array>
 
     <string name="readable_spn_routes">Lista de rutas</string>
     <string name="additional_info">Información adicional</string>
     <string-array name="routes_array">
         <item>Test</item>
-        <item>Aceleración repentina</item>
-        <item>Frenada repentina</item>
-        <item>Giro derecho agresivo</item>
-        <item>Giro izquierdo agresivo</item>
-        <item>Cambio de línea agresivo derecha</item>
-        <item>Cambio de línea agresivo izquierda</item>
-        <item>Conducción por Ipiales</item>
+        <item>Ruta 1 - Calle 5</item>
+        <item>Ruta 2 - Variante</item>
+        <item>Ruta 3 - Panamericana</item>
+        <item>Ruta 4 - Carreras 6 a 9</item>
+        <item>Ruta 5 - Centro</item>
     </string-array>
 
 </resources>
